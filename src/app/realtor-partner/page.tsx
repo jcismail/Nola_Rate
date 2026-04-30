@@ -59,16 +59,21 @@ export default function RealtorPartnerPage() {
           <h2 className="text-2xl font-bold text-[#172033]">Partner Interest Form</h2>
           <form className="mt-4 grid gap-3" onSubmit={(e) => void onSubmit(e)}>
             <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-            <input name="name" required placeholder="Agent Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="brokerage" placeholder="Brokerage" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <textarea name="notes" rows={4} placeholder="How can we collaborate?" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <label htmlFor="rp-name" className="sr-only">Agent Name</label>
+            <label htmlFor="rp-brokerage" className="sr-only">Brokerage</label>
+            <label htmlFor="rp-email" className="sr-only">Email</label>
+            <label htmlFor="rp-phone" className="sr-only">Phone</label>
+            <label htmlFor="rp-notes" className="sr-only">Collaboration Notes</label>
+            <input id="rp-name" name="name" required placeholder="Agent Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="rp-brokerage" name="brokerage" placeholder="Brokerage" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="rp-email" name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="rp-phone" name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <textarea id="rp-notes" name="notes" rows={4} placeholder="How can we collaborate?" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
             <button type="submit" className="rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">
               {state === "submitting" ? "Submitting..." : "Request Partner Call"}
             </button>
             {state === "success" && <p className="text-sm text-green-700">Thanks! Partner request received.</p>}
-            {state === "error" && <p className="text-sm text-red-700">Submission failed. Please retry.</p>}
+            {state === "error" && <p role="alert" aria-live="assertive" className="text-sm text-red-700">Submission failed. Please retry.</p>}
           </form>
         </article>
       </section>

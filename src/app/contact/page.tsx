@@ -56,15 +56,19 @@ export default function ContactPage() {
           <h2 className="text-2xl font-bold text-[#172033]">Send A Message</h2>
           <form className="mt-4 grid gap-3" onSubmit={(e) => void onSubmit(e)}>
             <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-            <input name="name" required placeholder="Full Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="email" required type="email" placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <textarea name="message" rows={4} required placeholder="How can we help?" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <label htmlFor="contact-name" className="sr-only">Full Name</label>
+            <label htmlFor="contact-email" className="sr-only">Email</label>
+            <label htmlFor="contact-phone" className="sr-only">Phone</label>
+            <label htmlFor="contact-message" className="sr-only">Message</label>
+            <input id="contact-name" name="name" required placeholder="Full Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="contact-email" name="email" required type="email" placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="contact-phone" name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <textarea id="contact-message" name="message" rows={4} required placeholder="How can we help?" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
             <button type="submit" className="rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">
               {state === "submitting" ? "Submitting..." : "Send Message"}
             </button>
             {state === "success" && <p className="text-sm text-green-700">Message received. We will follow up soon.</p>}
-            {state === "error" && <p className="text-sm text-red-700">{error || "Submission failed."}</p>}
+            {state === "error" && <p role="alert" aria-live="assertive" className="text-sm text-red-700">{error || "Submission failed."}</p>}
           </form>
         </article>
       </section>

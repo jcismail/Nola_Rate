@@ -198,19 +198,25 @@ export default function Home() {
             <h2 className="text-xl font-bold text-[#172033]">Rate Quote</h2>
             <form className="mt-5 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "rate_quote" }); void submitLead(e, "rate_quote", setQuoteState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-              <input name="name" required placeholder="Full Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="phone" required placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="purchasePrice" placeholder="Purchase Price" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <select name="creditRange" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
+              <label htmlFor="rq-name" className="sr-only">Full Name</label>
+              <label htmlFor="rq-email" className="sr-only">Email</label>
+              <label htmlFor="rq-phone" className="sr-only">Phone</label>
+              <label htmlFor="rq-price" className="sr-only">Purchase Price</label>
+              <label htmlFor="rq-credit" className="sr-only">Credit Range</label>
+              <label htmlFor="rq-timeline" className="sr-only">Timeline</label>
+              <input id="rq-name" name="name" required placeholder="Full Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="rq-email" name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="rq-phone" name="phone" required placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="rq-price" name="purchasePrice" placeholder="Purchase Price" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <select id="rq-credit" name="creditRange" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
                 <option value="">Credit Range</option><option>760+</option><option>700-759</option><option>640-699</option><option>Below 640</option>
               </select>
-              <select name="timeline" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
+              <select id="rq-timeline" name="timeline" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
                 <option value="">Timeline</option><option>ASAP</option><option>1-3 months</option><option>3-6 months</option><option>6+ months</option>
               </select>
               <button type="submit" className="mt-1 rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">{quoteState === "submitting" ? "Submitting..." : "Get My Rate Quote"}</button>
               {quoteState === "success" && <p className="text-sm text-green-700">Thanks, we received your quote request.</p>}
-              {quoteState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
+              {quoteState === "error" && <p role="alert" aria-live="assertive" className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
 
@@ -219,13 +225,17 @@ export default function Home() {
             <a href={calendlyUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold text-[#1f6dd8] underline">Book on Calendly</a>
             <form className="mt-4 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "strategy_call" }); void submitLead(e, "strategy_call", setCallState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-              <input name="name" required placeholder="Best Contact Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="phone" required placeholder="Best Phone Number" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="preferredCallTime" placeholder="Preferred Call Time" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <label htmlFor="sc-name" className="sr-only">Best Contact Name</label>
+              <label htmlFor="sc-phone" className="sr-only">Best Phone Number</label>
+              <label htmlFor="sc-email" className="sr-only">Email</label>
+              <label htmlFor="sc-time" className="sr-only">Preferred Call Time</label>
+              <input id="sc-name" name="name" required placeholder="Best Contact Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sc-phone" name="phone" required placeholder="Best Phone Number" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sc-email" name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sc-time" name="preferredCallTime" placeholder="Preferred Call Time" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <button type="submit" className="mt-1 rounded-lg bg-[#12345a] px-4 py-2.5 font-semibold text-white">{callState === "submitting" ? "Submitting..." : "Request Call"}</button>
               {callState === "success" && <p className="text-sm text-green-700">Call request received.</p>}
-              {callState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
+              {callState === "error" && <p role="alert" aria-live="assertive" className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
 
@@ -233,14 +243,19 @@ export default function Home() {
             <h2 className="text-xl font-bold text-[#172033]">Start Application</h2>
             <form className="mt-5 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "start_application" }); void submitLead(e, "start_application", setAppState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-              <input name="name" required placeholder="Borrower Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="phone" required placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="purchasePrice" placeholder="Estimated Purchase Price" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-              <input name="timeline" placeholder="Purchase Timeline" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <label htmlFor="sa-name" className="sr-only">Borrower Name</label>
+              <label htmlFor="sa-email" className="sr-only">Email</label>
+              <label htmlFor="sa-phone" className="sr-only">Phone</label>
+              <label htmlFor="sa-price" className="sr-only">Estimated Purchase Price</label>
+              <label htmlFor="sa-time" className="sr-only">Purchase Timeline</label>
+              <input id="sa-name" name="name" required placeholder="Borrower Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sa-email" name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sa-phone" name="phone" required placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sa-price" name="purchasePrice" placeholder="Estimated Purchase Price" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+              <input id="sa-time" name="timeline" placeholder="Purchase Timeline" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <button type="submit" className="mt-1 rounded-lg bg-[#12345a] px-4 py-2.5 font-semibold text-white">{appState === "submitting" ? "Submitting..." : "Start Application"}</button>
               {appState === "success" && <p className="text-sm text-green-700">Application request received.</p>}
-              {appState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
+              {appState === "error" && <p role="alert" aria-live="assertive" className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
         </section>
@@ -296,10 +311,14 @@ export default function Home() {
           <h2 className="text-xl font-bold text-[#172033]">Lead Magnet Download</h2>
           <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "lead_magnet" }); void submitLead(e, "lead_magnet", setMagnetState); }}>
             <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
-            <input name="name" required placeholder="Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <input name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
-            <select name="asset" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
+            <label htmlFor="lm-name" className="sr-only">Name</label>
+            <label htmlFor="lm-email" className="sr-only">Email</label>
+            <label htmlFor="lm-phone" className="sr-only">Phone</label>
+            <label htmlFor="lm-asset" className="sr-only">Guide Selection</label>
+            <input id="lm-name" name="name" required placeholder="Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="lm-email" name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <input id="lm-phone" name="phone" placeholder="Phone" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
+            <select id="lm-asset" name="asset" className="rounded-lg border border-[#c9d9f6] bg-white px-3 py-2.5">
               <option>Louisiana & Mississippi Homebuyer Checklist</option>
               <option>Pre-Approval Document Checklist</option>
               <option>FHA vs Conventional Guide</option>
@@ -307,7 +326,7 @@ export default function Home() {
             </select>
             <button type="submit" className="sm:col-span-2 rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">{magnetState === "submitting" ? "Submitting..." : "Send Me The Guide"}</button>
             {magnetState === "success" && <p className="sm:col-span-2 text-sm text-green-700">Request received. John can follow up with the guide.</p>}
-            {magnetState === "error" && <p className="sm:col-span-2 text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
+            {magnetState === "error" && <p role="alert" aria-live="assertive" className="sm:col-span-2 text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
           </form>
         </section>
 
