@@ -80,6 +80,7 @@ export default function Home() {
   const [callState, setCallState] = useState<FormState>("idle");
   const [appState, setAppState] = useState<FormState>("idle");
   const [magnetState, setMagnetState] = useState<FormState>("idle");
+  const [formError, setFormError] = useState("");
 
   const utm = useMemo(() => {
     if (typeof window === "undefined") return {};
@@ -99,6 +100,7 @@ export default function Home() {
     setState: (state: FormState) => void
   ) {
     event.preventDefault();
+    setFormError("");
     setState("submitting");
 
     const formData = new FormData(event.currentTarget);
@@ -117,13 +119,25 @@ export default function Home() {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("submit failed");
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error || "submit failed");
+      }
       setState("success");
       event.currentTarget.reset();
       router.push(`/thank-you?type=${leadType}`);
-    } catch {
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : "Submission failed. Please try again.");
       setState("error");
     }
+  }
+
+  function trackEvent(name: string, data?: Record<string, string>) {
+    if (typeof window === "undefined") return;
+    const eventData = { event: name, ...data };
+    (window as Window & { dataLayer?: Record<string, unknown>[] }).dataLayer?.push(
+      eventData
+    );
   }
 
   return (
@@ -162,9 +176,9 @@ export default function Home() {
                 John helps buyers compare lenders, choose the right loan strategy, and close with confidence.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#quote-form" className="rounded-full bg-[#f7b84d] px-5 py-3 text-sm font-semibold text-[#172033]">Get My Rate Quote</a>
-                <a href={calendlyUrl} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/50 px-5 py-3 text-sm font-semibold text-white">Schedule 15-Min Mortgage Call</a>
-                <a href="#application-form" className="rounded-full border border-white/50 px-5 py-3 text-sm font-semibold text-white">Upload Docs / Start Application</a>
+                <a href="#quote-form" onClick={() => trackEvent("cta_click", { cta: "hero_rate_quote" })} className="rounded-full bg-[#f7b84d] px-5 py-3 text-sm font-semibold text-[#172033]">Get My Rate Quote</a>
+                <a href={calendlyUrl} onClick={() => trackEvent("cta_click", { cta: "hero_schedule_call" })} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/50 px-5 py-3 text-sm font-semibold text-white">Schedule 15-Min Mortgage Call</a>
+                <a href="#application-form" onClick={() => trackEvent("cta_click", { cta: "hero_start_application" })} className="rounded-full border border-white/50 px-5 py-3 text-sm font-semibold text-white">Upload Docs / Start Application</a>
               </div>
             </div>
             <div className="space-y-4">
@@ -182,7 +196,7 @@ export default function Home() {
         <section className="mt-9 grid gap-6 lg:grid-cols-3">
           <article id="quote-form" className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-[#e6eefb]">
             <h2 className="text-xl font-bold text-[#172033]">Rate Quote</h2>
-            <form className="mt-5 grid gap-3" onSubmit={(e) => void submitLead(e, "rate_quote", setQuoteState)}>
+            <form className="mt-5 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "rate_quote" }); void submitLead(e, "rate_quote", setQuoteState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
               <input name="name" required placeholder="Full Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
@@ -196,14 +210,14 @@ export default function Home() {
               </select>
               <button type="submit" className="mt-1 rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">{quoteState === "submitting" ? "Submitting..." : "Get My Rate Quote"}</button>
               {quoteState === "success" && <p className="text-sm text-green-700">Thanks, we received your quote request.</p>}
-              {quoteState === "error" && <p className="text-sm text-red-700">Submission failed. Please try again.</p>}
+              {quoteState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
 
           <article className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-[#e6eefb]">
             <h2 className="text-xl font-bold text-[#172033]">15-Min Call</h2>
             <a href={calendlyUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold text-[#1f6dd8] underline">Book on Calendly</a>
-            <form className="mt-4 grid gap-3" onSubmit={(e) => void submitLead(e, "strategy_call", setCallState)}>
+            <form className="mt-4 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "strategy_call" }); void submitLead(e, "strategy_call", setCallState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
               <input name="name" required placeholder="Best Contact Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <input name="phone" required placeholder="Best Phone Number" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
@@ -211,13 +225,13 @@ export default function Home() {
               <input name="preferredCallTime" placeholder="Preferred Call Time" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <button type="submit" className="mt-1 rounded-lg bg-[#12345a] px-4 py-2.5 font-semibold text-white">{callState === "submitting" ? "Submitting..." : "Request Call"}</button>
               {callState === "success" && <p className="text-sm text-green-700">Call request received.</p>}
-              {callState === "error" && <p className="text-sm text-red-700">Submission failed. Please try again.</p>}
+              {callState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
 
           <article id="application-form" className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-[#e6eefb]">
             <h2 className="text-xl font-bold text-[#172033]">Start Application</h2>
-            <form className="mt-5 grid gap-3" onSubmit={(e) => void submitLead(e, "start_application", setAppState)}>
+            <form className="mt-5 grid gap-3" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "start_application" }); void submitLead(e, "start_application", setAppState); }}>
               <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
               <input name="name" required placeholder="Borrower Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
@@ -226,7 +240,7 @@ export default function Home() {
               <input name="timeline" placeholder="Purchase Timeline" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
               <button type="submit" className="mt-1 rounded-lg bg-[#12345a] px-4 py-2.5 font-semibold text-white">{appState === "submitting" ? "Submitting..." : "Start Application"}</button>
               {appState === "success" && <p className="text-sm text-green-700">Application request received.</p>}
-              {appState === "error" && <p className="text-sm text-red-700">Submission failed. Please try again.</p>}
+              {appState === "error" && <p className="text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
             </form>
           </article>
         </section>
@@ -278,7 +292,7 @@ export default function Home() {
 
         <section className="mt-9 rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#172033]">Lead Magnet Download</h2>
-          <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={(e) => void submitLead(e, "lead_magnet", setMagnetState)}>
+          <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={(e) => { trackEvent("form_submit_attempt", { form: "lead_magnet" }); void submitLead(e, "lead_magnet", setMagnetState); }}>
             <input type="text" name="company_website" autoComplete="off" tabIndex={-1} className="hidden" />
             <input name="name" required placeholder="Name" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
             <input name="email" type="email" required placeholder="Email" className="rounded-lg border border-[#c9d9f6] px-3 py-2.5" />
@@ -291,8 +305,19 @@ export default function Home() {
             </select>
             <button type="submit" className="sm:col-span-2 rounded-lg bg-[#1f6dd8] px-4 py-2.5 font-semibold text-white">{magnetState === "submitting" ? "Submitting..." : "Send Me The Guide"}</button>
             {magnetState === "success" && <p className="sm:col-span-2 text-sm text-green-700">Request received. John can follow up with the guide.</p>}
-            {magnetState === "error" && <p className="sm:col-span-2 text-sm text-red-700">Submission failed. Please try again.</p>}
+            {magnetState === "error" && <p className="sm:col-span-2 text-sm text-red-700">{formError || "Submission failed. Please try again."}</p>}
           </form>
+        </section>
+
+        <section className="mt-9 grid gap-4 sm:grid-cols-2">
+          <a href="/review-us" className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-[#e6eefb]">
+            <h3 className="text-xl font-bold text-[#172033]">Review Us</h3>
+            <p className="mt-1 text-[#43506b]">Help local buyers find a trusted mortgage advisor.</p>
+          </a>
+          <a href="/contact" className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-[#e6eefb]">
+            <h3 className="text-xl font-bold text-[#172033]">Contact</h3>
+            <p className="mt-1 text-[#43506b]">Call, text, or send your scenario for next-step guidance.</p>
+          </a>
         </section>
 
         <footer className="mt-9 overflow-hidden rounded-2xl border border-[#0c1b4a] bg-[#020a39] text-white">
