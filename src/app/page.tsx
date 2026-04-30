@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
-const calendlyUrl = "https://calendly.com/";
+const calendlyUrl =
+  process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || "/book-call";
 
 const trustItems = [
   "Local broker strategy, not one-size-fits-all bank scripts",
@@ -73,6 +75,7 @@ const financingOptions = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [quoteState, setQuoteState] = useState<FormState>("idle");
   const [callState, setCallState] = useState<FormState>("idle");
   const [appState, setAppState] = useState<FormState>("idle");
@@ -117,6 +120,7 @@ export default function Home() {
       if (!res.ok) throw new Error("submit failed");
       setState("success");
       event.currentTarget.reset();
+      router.push(`/thank-you?type=${leadType}`);
     } catch {
       setState("error");
     }
@@ -264,6 +268,12 @@ export default function Home() {
               <a key={page.href} href={page.href} className="rounded-full border border-[#c8daf7] bg-[#f8fbff] px-3.5 py-1.5 text-sm font-semibold text-[#12345a] hover:bg-[#eef4ff]">{page.label}</a>
             ))}
           </div>
+          <a
+            href="/realtor-partner"
+            className="mt-5 inline-block rounded bg-[#135f99] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#0f4f80]"
+          >
+            View Realtor Partner Program
+          </a>
         </section>
 
         <section className="mt-9 rounded-2xl bg-white p-6 shadow-sm">

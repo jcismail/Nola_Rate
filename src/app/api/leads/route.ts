@@ -12,6 +12,28 @@ type LeadPayload = {
 
 const dataDir = path.join(process.cwd(), "data");
 const leadsFile = path.join(dataDir, "leads.jsonl");
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 10;
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+function getClientIp(req: Request) {
+  const forwarded = req.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0]?.trim() || "unknown";
+  return req.headers.get("x-real-ip") || "unknown";
+}
+
+function isRateLimited(ip: string) {
+  const now = Date.now();
+  const current = rateLimitStore.get(ip);
+  if (!current || current.resetAt < now) {
+    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+  if (current.count >= RATE_LIMIT_MAX) return true;
+  current.count += 1;
+  rateLimitStore.set(ip, current);
+  return false;
+}
 
 async function sendLeadEmail(entry: Record<string, unknown>) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -40,6 +62,14 @@ async function sendLeadEmail(entry: Record<string, unknown>) {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    if (isRateLimited(ip)) {
+      return Response.json(
+        { ok: false, error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const payload = (await req.json()) as LeadPayload;
 
     // Honeypot trap: if bot fills this field, return success without processing.

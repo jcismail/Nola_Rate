@@ -3,9 +3,17 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+const calendlyUrl =
+  process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || "/book-call";
+
 type Section = {
   title: string;
   bullets: string[];
+};
+
+type FAQ = {
+  question: string;
+  answer: string;
 };
 
 type SolutionPageConfig = {
@@ -16,6 +24,7 @@ type SolutionPageConfig = {
   introHeadline: string;
   introText: string;
   sections: Section[];
+  faqs?: FAQ[];
 };
 
 const pages: Record<string, SolutionPageConfig> = {
@@ -45,6 +54,23 @@ const pages: Record<string, SolutionPageConfig> = {
           "Much stricter requirements for approval than FHA",
           "Lower credit scores will likely require a larger down payment",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can I still qualify with a credit score under 620?",
+        answer:
+          "Possibly, yes. Qualification depends on full profile including down payment, income, debt ratio, and reserves.",
+      },
+      {
+        question: "What is the minimum score for FHA?",
+        answer:
+          "Program guidelines can allow lower scores, but lender overlays vary. We match your profile to lenders with workable options.",
+      },
+      {
+        question: "Will I need a larger down payment with lower credit?",
+        answer:
+          "In many scenarios, yes. We outline a realistic approval plan with payment options before you shop homes.",
       },
     ],
   },
@@ -90,6 +116,23 @@ const pages: Record<string, SolutionPageConfig> = {
         ],
       },
     ],
+    faqs: [
+      {
+        question: "What is a bank statement loan?",
+        answer:
+          "A non-QM option that uses business or personal bank deposits to assess qualifying income for self-employed borrowers.",
+      },
+      {
+        question: "What does DSCR mean?",
+        answer:
+          "Debt Service Coverage Ratio. It evaluates investment property cash flow compared to debt obligation, often with reduced personal income documentation.",
+      },
+      {
+        question: "Do I need W2 income for these programs?",
+        answer:
+          "Not always. These programs are designed for non-traditional income profiles such as 1099 and business-owner scenarios.",
+      },
+    ],
   },
   "zero-down-programs": {
     title: "Zero Down",
@@ -123,6 +166,23 @@ const pages: Record<string, SolutionPageConfig> = {
           "Property and borrower eligibility rules apply",
           "Check eligibility at: eligibility.sc.egov.usda.gov",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Are zero-down programs available everywhere?",
+        answer:
+          "No. Program eligibility depends on location, borrower profile, and property type.",
+      },
+      {
+        question: "Can I combine assistance with other loan types?",
+        answer:
+          "In some cases, yes. We review compatibility rules and structure the most practical path for your scenario.",
+      },
+      {
+        question: "How do I check USDA area eligibility?",
+        answer:
+          "USDA eligibility is location-specific. We can confirm eligible areas during pre-approval planning.",
       },
     ],
   },
@@ -206,6 +266,23 @@ const pages: Record<string, SolutionPageConfig> = {
         ],
       },
     ],
+    faqs: [
+      {
+        question: "Who is FHA best for?",
+        answer:
+          "Often first-time buyers or borrowers needing more flexible credit/down-payment pathways.",
+      },
+      {
+        question: "Does FHA require mortgage insurance?",
+        answer:
+          "Yes, mortgage insurance commonly applies. We compare total payment impact versus other options.",
+      },
+      {
+        question: "Can FHA be used in Louisiana and Mississippi?",
+        answer:
+          "Yes, with normal lender and property eligibility requirements. We confirm fit during pre-approval.",
+      },
+    ],
   },
   "va-loans": {
     title: "VA Loans",
@@ -231,6 +308,23 @@ const pages: Record<string, SolutionPageConfig> = {
           "Build the right loan structure",
           "Coordinate approval through closing",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do VA loans require PMI?",
+        answer:
+          "No, eligible VA borrowers do not pay private mortgage insurance.",
+      },
+      {
+        question: "Can VA loans be zero down?",
+        answer:
+          "Yes, many eligible borrowers can use zero-down financing, subject to lender and property guidelines.",
+      },
+      {
+        question: "How do I start a VA loan application?",
+        answer:
+          "We begin by confirming eligibility, gathering documents, and structuring the pre-approval plan.",
       },
     ],
   },
@@ -344,6 +438,21 @@ export default async function SolutionPage({
   const { slug } = await params;
   const page = pages[slug];
   if (!page) notFound();
+  const faqSchema =
+    page.faqs && page.faqs.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: page.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          })),
+        }
+      : null;
 
   return (
     <div className="min-h-screen bg-[#f3f4f7]">
@@ -356,7 +465,7 @@ export default async function SolutionPage({
             <Link href="/#why">Why C2?</Link>
             <Link href="/#financing">Get Financing</Link>
             <Link href="/#testimonials">Testimonials</Link>
-            <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer">
+            <a href={calendlyUrl} target="_blank" rel="noopener noreferrer">
               Schedule a Consultation
             </a>
             <a href="tel:+14692262429" className="text-[#129bd0]">
@@ -393,12 +502,32 @@ export default async function SolutionPage({
           ))}
         </section>
 
+        {page.faqs && page.faqs.length > 0 && (
+          <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e7eaf2]">
+            <h2 className="text-3xl font-bold text-[#071c4e]">Frequently Asked Questions</h2>
+            <div className="mt-4 space-y-4">
+              {page.faqs.map((faq) => (
+                <article key={faq.question} className="rounded-lg border border-[#e6ebf5] p-4">
+                  <h3 className="text-xl font-semibold text-[#102a52]">{faq.question}</h3>
+                  <p className="mt-1 text-[#5d6d86]">{faq.answer}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e7eaf2]">
           <p className="text-center text-3xl text-[#071c4e]">
             Text/call: <a href="tel:+14692262429" className="text-[#129bd0]">469.226.2429</a>
           </p>
         </section>
       </main>
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
     </div>
   );
 }
