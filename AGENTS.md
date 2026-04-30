@@ -1,19 +1,5 @@
-# AGENTS
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-## Stage Deployment Alias Rule (Permanent)
-
-After any stage preview build/push intended for QA, always repoint the public stage domain:
-
-`stage.partyswami.com` -> latest `stage/*` preview deployment.
-
-Use:
-
-`npm run stage:alias`
-
-Optional overrides:
-
-- `STAGE_BRANCH`
-- `STAGE_SOURCE_ALIAS`
-- `STAGE_DOMAIN` (default: `stage.partyswami.com`)
-- `VERCEL_SCOPE` (default: `xponetials-projects`)
-
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->

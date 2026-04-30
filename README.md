@@ -1,22 +1,46 @@
-# Texas Rate
+# Gulf South Insurance Demo
 
-Mortgage website revamp project for demo and phased rollout.
+Conversion-focused demo site for insurers serving Louisiana and Mississippi.
 
-## Goals
+## Project Focus
 
-- Launch a conversion-focused homepage
-- Create ad-specific landing pages
-- Keep technology spend minimal for MVP
-- Add CRM integrations later
+- Service lines: Home, Auto, Flood, and Business insurance
+- Primary goal: lead generation demo (quote + advisor call forms)
+- Secondary goal: stage environment demos before stakeholder review
 
-## Initial Phases
+## Tech Stack
 
-1. Homepage MVP + lead forms
-2. Landing pages for paid campaigns
-3. Lead capture ops and follow-up workflow
-4. SEO/content and optimization
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS v4
 
 ## Local Development
 
-Project scaffolding will be added next.
+1. Install dependencies:
+`npm install`
 
+2. Start development server:
+`npm run dev`
+
+3. Open:
+`http://localhost:3000`
+
+## Stage Alias Workflow
+
+After any stage preview build/push for QA, repoint stage domain:
+
+`npm run stage:alias`
+
+Optional env overrides:
+
+- `STAGE_BRANCH`
+- `STAGE_SOURCE_ALIAS`
+- `STAGE_DOMAIN` (default: `stage.partyswami.com`)
+- `VERCEL_SCOPE` (default: `xponetials-projects`)
+
+## Launch Notes
+
+This repo is demo-first. Before production launch, add:
+- Licensed agency and state-specific compliance disclosures
+- Real backend/CRM integration for form submissions
+- Analytics and conversion tracking
