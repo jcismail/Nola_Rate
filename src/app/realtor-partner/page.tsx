@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import SiteHeader from "@/components/site/SiteHeader";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -34,12 +35,14 @@ export default function RealtorPartnerPage() {
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-6 py-12 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
+    <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
+      <SiteHeader />
       <section className="rounded-2xl bg-[linear-gradient(130deg,#12345a_0%,#1f6dd8_70%,#68bdf7_100%)] p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold">Realtor Partner Program</h1>
         <p className="mt-3 max-w-3xl text-lg text-blue-50">
-          Helping Louisiana and Mississippi realtors close more deals with fast
-          pre-approvals, clear communication, and loan options that fit more buyers.
+          Helping Louisiana and Mississippi realtors serve families better with fast
+          initial qualification, clear communication, and loan options that fit real-life goals.
         </p>
       </section>
 
@@ -90,5 +93,6 @@ export default function RealtorPartnerPage() {
         </Link>
       </section>
     </main>
+    </div>
   );
 }

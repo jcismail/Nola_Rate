@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import SiteHeader from "@/components/site/SiteHeader";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -38,12 +39,14 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-6 py-12 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
+      <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
+      <SiteHeader />
       <section className="grid gap-6 md:grid-cols-2">
         <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e6eefb]">
           <h1 className="text-4xl font-bold text-[#172033]">Contact</h1>
           <p className="mt-2 text-[#43506b]">
-            Reach out for pre-approval, refinance strategy, or loan scenario guidance.
+            Reach out for friendly, family-focused guidance on purchase, refinance, and next-step planning.
           </p>
           <div className="mt-5 space-y-2 text-[#172033]">
             <p><strong>Call/Text:</strong> <a href="tel:+14692262429" className="text-[#1f6dd8]">469.226.2429</a></p>
@@ -72,6 +75,7 @@ export default function ContactPage() {
           </form>
         </article>
       </section>
-    </main>
+      </main>
+    </div>
   );
 }

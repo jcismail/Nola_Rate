@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import SiteHeader from "@/components/site/SiteHeader";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -10,10 +11,10 @@ const calendlyUrl =
   process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || "/book-call";
 
 const trustItems = [
-  "Local broker strategy, not one-size-fits-all bank scripts",
-  "Shops multiple lenders to find the right loan structure",
-  "Fast pre-approval support to help offers win",
-  "Guidance designed for Louisiana and Mississippi buyers",
+  "Friendly, one-on-one mortgage guidance built around your family goals",
+  "Clear options and honest advice so you can choose with confidence",
+  "Fast initial qualification support to help your family move forward",
+  "Local support for Louisiana and Mississippi buyers at every step",
 ];
 
 const seoPages = [
@@ -143,25 +144,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
       <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
-        <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="grid h-12 w-12 place-items-center rounded-full bg-[#0fa5d7] text-3xl font-black leading-none text-white">
-              %
-            </div>
-            <div>
-              <p className="text-4xl font-black uppercase tracking-tight text-[#1a2337]">
-                Gulf<span className="ml-1.5 text-[#0fa5d7]">Rate</span>
-              </p>
-              <p className="mt-[-2px] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5f6f8d]">
-                Louisiana & Mississippi
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 rounded-full border border-[#c7daf8] bg-white px-4 py-2 text-xs text-[#3b4f70]">
-            <span>Powered by</span>
-            <Image src="/brand/c2financial-logo.png" alt="C2 Financial" width={110} height={24} />
-          </div>
-        </header>
+        <SiteHeader />
 
         <section className="overflow-hidden rounded-3xl bg-[linear-gradient(130deg,#12345a_0%,#1f6dd8_62%,#68bdf7_100%)] p-7 text-white shadow-xl md:p-10">
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
@@ -170,10 +153,11 @@ export default function Home() {
                 Louisiana & Mississippi Expansion Demo
               </p>
               <h1 className="text-3xl font-bold leading-tight md:text-5xl">
-                Local Mortgage Guidance For Louisiana and Mississippi Buyers
+                Mortgage Guidance That Feels Personal, Clear, and Family-First
               </h1>
               <p className="max-w-2xl text-base text-blue-50 md:text-lg">
-                John helps buyers compare lenders, choose the right loan strategy, and close with confidence.
+                John takes time to understand your goals, explain your options in plain language,
+                and help your household choose the right path to homeownership.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a href="#quote-form" onClick={() => trackEvent("cta_click", { cta: "hero_rate_quote" })} className="rounded-full bg-[#f7b84d] px-5 py-3 text-sm font-semibold text-[#172033]">Get My Rate Quote</a>
@@ -341,28 +325,7 @@ export default function Home() {
           </a>
         </section>
 
-        <footer className="mt-9 overflow-hidden rounded-2xl border border-[#0c1b4a] bg-[#020a39] text-white">
-          <div className="px-6 py-7 md:px-8">
-            <div className="mb-5 flex flex-wrap items-center gap-6">
-              <Image src="/brand/c2financial-logo.png" alt="C2 Financial" width={160} height={36} />
-              <div className="rounded bg-white px-2 py-1 text-[10px] font-bold text-[#0c1b4a]">EQUAL HOUSING OPPORTUNITY</div>
-              <div className="rounded bg-white px-2 py-1 text-[10px] font-bold text-[#0c1b4a]">NMLS CONSUMER ACCESS</div>
-            </div>
-            <div className="space-y-4 text-sm leading-7 text-blue-50">
-              <p className="font-semibold">C2 NMLS #231283</p>
-              <p>C2 Financial is rapidly growing with active licenses in over 34 states as of March 2024. Number of licensed states and lenders within the C2 Lender Network may vary. www.C2Financial.com</p>
-              <p>Consumers wishing to file a complaint against a company or a residential mortgage loan originator should complete and send a complaint form to the texas department of savings and mortgage lending, 2601 North Lamar, Suite 201, Austin, Texas 78705. Complaint forms and instructions may be obtained from the department&apos;s website at www.sml.texas.gov.</p>
-              <p>A toll-free consumer hotline is available at 1-877-276-5550. The department maintains a recovery fund to make payments of certain actual out of pocket damages sustained by borrowers caused by acts of licensed residential mortgage loan originators. A written application for reimbursement from the recovery fund must be filed with and investigated by the department prior to the payment of a claim. For more information about the recovery fund, please consult the department&apos;s website at www.sml.texas.gov.</p>
-              <p>This licensee is performing acts for which a mortgage Company License is required. C2 Financial Corporation is licensed by the Texas Department of Savings and Mortgage Lending; NMLS# 135622. Loan approval is not guaranteed and is subject to lender review of information. All loan approvals are conditional and all conditions must be met by borrower. Loan is only approved when lender has issued approval in writing and is subject to the Lender conditions. Specified rates may not be available for all borrowers. Rate subject to change with market conditions. C2 Financial Corporation is an Equal Opportunity Mortgage Broker/Lender. The services referred to herein are not available to persons located outside the state of TX. C2 Financial Corporation has the ability to broker VA loans based on their relationship with VA approved lenders. C2 Financial Corporation is not acting on behalf of or at the direction of HUD/FHA or the VA.</p>
-              <p>Texas Complaint/Recovery Fund Notice: <a href="https://www.sml.texas.gov/ResidentialMortgageLoanOriginator/rmlo_mb_forms.html" target="_blank" rel="noopener noreferrer" className="underline">https://www.sml.texas.gov/ResidentialMortgageLoanOriginator/rmlo_mb_forms.html</a></p>
-            </div>
-          </div>
-          <div className="border-t border-white/15 px-6 py-5 text-sm text-blue-50 md:px-8">
-            <p>Corporate Address: 12230 El Camino Real, Ste 100 | San Diego, CA 92130</p>
-            <p className="mt-2">© 2026 All Rights Reserved.</p>
-            <p className="mt-2 font-semibold">C2 NMLS #135622 | C2 TX #135622 | NMLS #231283</p>
-          </div>
-        </footer>
+
       </main>
     </div>
   );

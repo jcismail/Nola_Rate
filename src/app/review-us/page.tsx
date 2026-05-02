@@ -1,8 +1,11 @@
 import Link from "next/link";
+import SiteHeader from "@/components/site/SiteHeader";
 
 export default function ReviewUsPage() {
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-6 py-12 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
+    <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
+      <SiteHeader />
       <section className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-[#e6eefb]">
         <h1 className="text-4xl font-bold text-[#172033]">Review Us</h1>
         <p className="mt-3 text-lg text-[#43506b]">
@@ -22,5 +25,6 @@ export default function ReviewUsPage() {
         </Link>
       </section>
     </main>
+    </div>
   );
 }

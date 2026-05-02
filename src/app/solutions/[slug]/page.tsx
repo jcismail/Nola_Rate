@@ -1,10 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
-const calendlyUrl =
-  process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || "/book-call";
+import SiteHeader from "@/components/site/SiteHeader";
 
 type Section = {
   title: string;
@@ -35,13 +32,13 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/low-credit-hero.jpeg",
     introHeadline: "Have a low credit score? We might be able to help!",
     introText:
-      "FHA goes to a 500 credit score! Most banks add their own guidelines on top of FHA. We do not!",
+      "Program and lender guidelines can support borrowers with developing credit profiles. Qualification depends on full borrower and property review.",
     sections: [
       {
         title: "FHA requirements",
         bullets: [
-          "Minimum 580+ credit score for just 3.5% down payment",
-          "If under a 580 credit score, you will need at least 10% down (may vary by profile)",
+          "Lower down payment options may be available for qualified borrowers",
+          "Credit and down payment requirements vary by lender and borrower profile",
           "Must be able to verify income",
           "No foreclosures within the last 3 years",
           "No bankruptcy in the last 2 years",
@@ -50,9 +47,9 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         title: "Fannie Mae / Freddie Mac requirements",
         bullets: [
-          "Effective November 16, 2025, Fannie/Freddie removed the minimum credit score",
-          "Much stricter requirements for approval than FHA",
-          "Lower credit scores will likely require a larger down payment",
+          "Conventional requirements vary by lender and scenario",
+          "Underwriting standards may be stricter than FHA in some scenarios",
+          "Lower credit profiles may require larger down payments",
         ],
       },
     ],
@@ -182,7 +179,7 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         question: "How do I check USDA area eligibility?",
         answer:
-          "USDA eligibility is location-specific. We can confirm eligible areas during pre-approval planning.",
+          "USDA eligibility is location-specific. We can confirm eligible areas during initial qualification planning.",
       },
     ],
   },
@@ -216,7 +213,7 @@ const pages: Record<string, SolutionPageConfig> = {
   "first-time-home-buyer": {
     title: "First-Time Home Buyer",
     navLabel: "First-Time",
-    subtitle: "Step-by-step guidance from pre-approval to close.",
+    subtitle: "Step-by-step guidance from initial qualification to close.",
     heroImage: "/brand/john_america_fade.png",
     introHeadline: "First home, clear strategy, confident closing",
     introText:
@@ -233,7 +230,7 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         title: "Execution",
         bullets: [
-          "Fast pre-approval support",
+          "Fast initial qualification support",
           "Offer-ready documentation",
           "Guided closing process",
         ],
@@ -280,7 +277,7 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         question: "Can FHA be used in Louisiana and Mississippi?",
         answer:
-          "Yes, with normal lender and property eligibility requirements. We confirm fit during pre-approval.",
+          "Yes, with normal lender and property eligibility requirements. We confirm fit during initial qualification.",
       },
     ],
   },
@@ -324,7 +321,7 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         question: "How do I start a VA loan application?",
         answer:
-          "We begin by confirming eligibility, gathering documents, and structuring the pre-approval plan.",
+          "We begin by confirming eligibility, gathering documents, and structuring the initial qualification plan.",
       },
     ],
   },
@@ -362,12 +359,12 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/john_america_fade.png",
     introHeadline: "Local Louisiana mortgage support",
     introText:
-      "From pre-approval to close, we help buyers move quickly and confidently in Louisiana markets.",
+      "From initial qualification to close, we help buyers move quickly and confidently in Louisiana markets.",
     sections: [
       {
         title: "How we help",
         bullets: [
-          "Fast pre-approval support",
+          "Fast initial qualification support",
           "Lender option comparison",
           "Clear communication with all parties",
         ],
@@ -394,7 +391,7 @@ const pages: Record<string, SolutionPageConfig> = {
       {
         title: "How we help",
         bullets: [
-          "Pre-approval and purchase support",
+          "Initial qualification and purchase support",
           "Refinance strategy and options",
           "Multiple lender comparison",
         ],
@@ -455,25 +452,10 @@ export default async function SolutionPage({
       : null;
 
   return (
-    <div className="min-h-screen bg-[#f3f4f7]">
-      <header className="border-b border-[#e5e8ef] bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/brand/logo-1-300x82.webp" alt="Texas Rate" width={210} height={56} />
-          </Link>
-          <nav className="hidden items-center gap-8 text-sm font-semibold text-[#071c4e] md:flex">
-            <Link href="/#why">Why C2?</Link>
-            <Link href="/#financing">Get Financing</Link>
-            <Link href="/#testimonials">Testimonials</Link>
-            <a href={calendlyUrl} target="_blank" rel="noopener noreferrer">
-              Schedule a Consultation
-            </a>
-            <a href="tel:+14692262429" className="text-[#129bd0]">
-              469.226.2429
-            </a>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
+      <div className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
+        <SiteHeader />
+      </div>
 
       <section className="relative h-[280px] md:h-[540px]">
         <Image src={page.heroImage} alt={page.title} fill className="object-cover" />
