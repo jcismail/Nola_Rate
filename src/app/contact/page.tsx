@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import SiteHeader from "@/components/site/SiteHeader";
+import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -49,8 +50,8 @@ export default function ContactPage() {
             Reach out for friendly, family-focused guidance on purchase, refinance, and next-step planning.
           </p>
           <div className="mt-5 space-y-2 text-[#172033]">
-            <p><strong>Call/Text:</strong> <a href="tel:+14692262429" className="text-[#1f6dd8]">469.226.2429</a></p>
-            <p><strong>Email:</strong> <a href="mailto:john@example.com" className="text-[#1f6dd8]">john@example.com</a></p>
+            <p><strong>Call/Text:</strong> <a href={toTelHref(siteConfig.contactPhone)} className="text-[#1f6dd8]">{siteConfig.contactPhone}</a></p>
+            <p><strong>Email:</strong> <a href={`mailto:${siteConfig.contactEmail}`} className="text-[#1f6dd8]">{siteConfig.contactEmail}</a></p>
             <p><strong>Service Area:</strong> Louisiana and Mississippi</p>
           </div>
         </article>

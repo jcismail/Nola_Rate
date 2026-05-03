@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/site/SiteHeader";
+import { siteConfig } from "@/lib/siteConfig";
 
 export default function ReviewUsPage() {
   return (
@@ -12,7 +13,7 @@ export default function ReviewUsPage() {
           Your feedback helps families in Louisiana and Mississippi find a trusted local mortgage guide.
         </p>
         <a
-          href="/contact"
+          href={siteConfig.reviewUrl}
           className="mt-6 inline-block rounded-lg bg-[#1f6dd8] px-5 py-3 font-semibold text-white hover:bg-[#195ebd]"
         >
           Request Review Link

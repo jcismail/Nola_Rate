@@ -27,3 +27,6 @@ jobs:
 
       - name: Advertising Compliance Check
         run: npm run compliance:check
+
+      - name: Build
+        run: npm run build

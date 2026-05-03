@@ -58,6 +58,9 @@ RESEND_API_KEY=
 LEAD_TO_EMAIL=
 LEAD_FROM_EMAIL=
 NEXT_PUBLIC_CALENDLY_URL=
+NEXT_PUBLIC_CONTACT_PHONE=
+NEXT_PUBLIC_CONTACT_EMAIL=
+NEXT_PUBLIC_REVIEW_URL=
 ```
 
 Where used:
@@ -83,6 +86,15 @@ Where used:
 
 4. `NEXT_PUBLIC_CALENDLY_URL`
 - Set to John's real Calendly event URL.
+
+5. `NEXT_PUBLIC_CONTACT_PHONE`
+- Public contact phone displayed on contact page.
+
+6. `NEXT_PUBLIC_CONTACT_EMAIL`
+- Public contact email displayed on contact page.
+
+7. `NEXT_PUBLIC_REVIEW_URL`
+- Google Business Profile review URL used by `/review-us`.
 
 ## Content values to finalize
 
