@@ -6,6 +6,8 @@ Use this checklist before sharing any build with John or submitting to C2 Advert
 
 - Run `npm run lint`
 - Run `npm run compliance:check`
+- Run `npm run test:smoke`
+- Run `npm run evidence:pack`
 - Confirm no unexpected git changes: `git status`
 
 ## 2) Functional Smoke Test

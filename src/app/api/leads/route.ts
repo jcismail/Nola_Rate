@@ -1,5 +1,6 @@
 import { mkdir, appendFile } from "node:fs/promises";
 import path from "node:path";
+import { sendLeadToAttio } from "@/lib/attio";
 
 type LeadPayload = {
   leadType?: string;
@@ -94,6 +95,7 @@ export async function POST(req: Request) {
     await mkdir(dataDir, { recursive: true });
     await appendFile(leadsFile, `${JSON.stringify(entry)}\n`, "utf8");
     await sendLeadEmail(entry);
+    await sendLeadToAttio(entry);
 
     return Response.json({ ok: true });
   } catch {

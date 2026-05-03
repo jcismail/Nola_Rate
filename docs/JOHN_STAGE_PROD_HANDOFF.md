@@ -179,6 +179,13 @@ Reference:
 3. Store production secrets only in Vercel env vars (and password manager).
 4. Keep separate sender identities and lead inboxes for stage vs production when feasible.
 
+## 6.1) Launch Flags Reference
+
+See:
+- `docs/LAUNCH_FLAGS.md`
+
+This file defines which env vars are public, which are secret, and how to safely toggle `ATTIO_ENABLED`.
+
 ## 7) Optional Next Integrations (Not yet in code)
 
 - CRM direct posting (HubSpot/Jungo/webhook)
@@ -206,4 +213,5 @@ Potential env vars (future):
 ATTIO_API_KEY=
 ATTIO_WORKSPACE_ID=
 ATTIO_LIST_ID=
+ATTIO_ENABLED=false
 ```
