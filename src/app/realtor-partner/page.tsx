@@ -84,9 +84,9 @@ export default function RealtorPartnerPage() {
       <section className="mt-7 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e6eefb]">
         <h2 className="text-2xl font-bold text-[#172033]">Demo Assets</h2>
         <div className="mt-3 flex flex-wrap gap-3">
-          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Co-Branded Flyer Kit (Placeholder)</span>
-          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Buyer Pre-Approval Checklist (Placeholder)</span>
-          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Webinar Signup Flow (Placeholder)</span>
+          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Co-Branded Flyer Kit (Coming Soon)</span>
+          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Buyer Qualification Checklist (Coming Soon)</span>
+          <span className="rounded bg-[#eef4ff] px-3 py-1.5 text-sm font-semibold text-[#12345a]">Webinar Signup Flow (Coming Soon)</span>
         </div>
         <Link href="/" className="mt-5 inline-block text-sm font-semibold text-[#1f6dd8] underline">
           Back to Homepage

@@ -12,13 +12,13 @@ export default function ReviewUsPage() {
           Your feedback helps families in Louisiana and Mississippi find a trusted local mortgage guide.
         </p>
         <a
-          href="#"
+          href="/contact"
           className="mt-6 inline-block rounded-lg bg-[#1f6dd8] px-5 py-3 font-semibold text-white hover:bg-[#195ebd]"
         >
-          Leave A Google Review (Placeholder)
+          Request Review Link
         </a>
         <p className="mt-4 text-sm text-[#5d6d86]">
-          Replace placeholder with John&apos;s Google Business Profile review URL.
+          John&apos;s direct Google review URL will be added after final onboarding.
         </p>
         <Link href="/" className="mt-6 inline-block text-sm font-semibold text-[#1f6dd8] underline">
           Back to Homepage

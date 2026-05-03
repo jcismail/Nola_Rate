@@ -1,12 +1,12 @@
-# Gulf South Insurance Demo
+# Texas Rate
 
-Conversion-focused demo site for insurers serving Louisiana and Mississippi.
+Conversion-focused mortgage lead generation demo site for Louisiana and Mississippi expansion.
 
 ## Project Focus
 
-- Service lines: Home, Auto, Flood, and Business insurance
-- Primary goal: lead generation demo (quote + advisor call forms)
-- Secondary goal: stage environment demos before stakeholder review
+- Generate and capture mortgage leads
+- Support loan scenario intake and consultation scheduling
+- Present compliant marketing/disclosure content for review
 
 ## Tech Stack
 
@@ -25,22 +25,9 @@ Conversion-focused demo site for insurers serving Louisiana and Mississippi.
 3. Open:
 `http://localhost:3000`
 
-## Stage Alias Workflow
-
-After any stage preview build/push for QA, repoint stage domain:
-
-`npm run stage:alias`
-
-Optional env overrides:
-
-- `STAGE_BRANCH`
-- `STAGE_SOURCE_ALIAS`
-- `STAGE_DOMAIN` (default: `stage.partyswami.com`)
-- `VERCEL_SCOPE` (default: `xponetials-projects`)
-
 ## Launch Notes
 
-This repo is demo-first. Before production launch, add:
-- Licensed agency and state-specific compliance disclosures
-- Real backend/CRM integration for form submissions
-- Analytics and conversion tracking
+Before production launch:
+- Complete C2 compliance/legal sign-off
+- Replace remaining placeholder contact/review links
+- Confirm CRM integration and analytics tracking
