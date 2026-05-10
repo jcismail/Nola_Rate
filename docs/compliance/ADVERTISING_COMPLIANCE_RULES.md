@@ -1,4 +1,4 @@
-# Texas Rate Advertising Compliance Rules
+# Nola Rate Advertising Compliance Rules
 
 Source policy:
 - `docs/compliance/Advertising P&P 2.2024.pdf`
@@ -59,3 +59,4 @@ Source policy:
 
 - This checklist is an engineering safety net and does not replace legal/compliance review.
 - If policy updates are issued, update both this file and `scripts/compliance-check.mjs`.
+

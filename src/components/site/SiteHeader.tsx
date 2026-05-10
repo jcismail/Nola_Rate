@@ -11,7 +11,7 @@ export default function SiteHeader() {
         </div>
         <div>
           <p className="text-4xl font-black uppercase tracking-tight text-[#1a2337]">
-            Gulf<span className="ml-1.5 text-[#0fa5d7]">Rate</span>
+            Nola<span className="ml-1.5 text-[#0fa5d7]">Rate</span>
           </p>
           <p className="mt-[-2px] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5f6f8d]">
             Louisiana & Mississippi

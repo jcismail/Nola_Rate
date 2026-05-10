@@ -1,6 +1,6 @@
 # Content Compliance Snippets (LA/MS Expansion)
 
-Use these snippets when writing or updating website/social advertising content for Texas Rate's Louisiana and Mississippi expansion pages.
+Use these snippets when writing or updating website/social advertising content for Nola Rate's Louisiana and Mississippi expansion pages.
 
 ## 1) Core Mortgage Disclaimer (Website/Footer)
 
@@ -107,3 +107,4 @@ NMLS Consumer Access link
 - This file is an internal copy helper, not legal advice.
 - Always obtain written approval before dissemination.
 - If state scope changes beyond Louisiana/Mississippi, update snippets before publishing.
+

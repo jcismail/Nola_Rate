@@ -1,6 +1,6 @@
 # John Stage/Production Handoff
 
-This document covers everything needed to move Texas Rate from local/demo to stage and production under John's ownership.
+This document covers everything needed to move Nola Rate from local/demo to stage and production under John's ownership.
 
 Last updated: May 3, 2026 (America/Chicago)
 
@@ -67,7 +67,7 @@ Where used:
 - `src/app/api/leads/route.ts`
   - `RESEND_API_KEY`
   - `LEAD_TO_EMAIL`
-  - `LEAD_FROM_EMAIL` (falls back to `leads@updates.gulfrate.com` if unset)
+  - `LEAD_FROM_EMAIL` (falls back to `leads@updates.nolarate.com` if unset)
 - `src/components/site/SiteHeader.tsx`
 - `src/app/page.tsx`
 - `src/app/book-call/page.tsx`
@@ -143,7 +143,7 @@ Reference:
 - Protect `main` branch and require PR checks.
 
 2. Vercel project setup
-- Import `Texas_Rate` repo.
+- Import `Nola_Rate` repo.
 - Create two environments at minimum:
   - Preview/Stage (Preview)
   - Production
@@ -215,3 +215,4 @@ ATTIO_WORKSPACE_ID=
 ATTIO_LIST_ID=
 ATTIO_ENABLED=false
 ```
+

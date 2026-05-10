@@ -12,7 +12,8 @@ export default function RealtorPartnerPage() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState("submitting");
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       leadType: "realtor_partner",
       page: "/realtor-partner",
@@ -28,7 +29,7 @@ export default function RealtorPartnerPage() {
       });
       if (!res.ok) throw new Error("failed");
       setState("success");
-      event.currentTarget.reset();
+      form.reset();
     } catch {
       setState("error");
     }

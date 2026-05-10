@@ -154,7 +154,7 @@ for (const file of walk(srcDir)) {
 }
 
 if (issues.length) {
-  console.error("Texas Rate advertising compliance check failed:");
+  console.error("Nola Rate advertising compliance check failed:");
   for (const issue of issues) {
     console.error(`- ${issue}`);
   }
@@ -162,10 +162,11 @@ if (issues.length) {
 }
 
 if (warnings.length) {
-  console.warn("Texas Rate advertising compliance warnings:");
+  console.warn("Nola Rate advertising compliance warnings:");
   for (const warning of warnings) {
     console.warn(`- ${warning}`);
   }
 }
 
-console.log("Texas Rate advertising compliance check passed.");
+console.log("Nola Rate advertising compliance check passed.");
+

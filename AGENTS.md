@@ -1,6 +1,6 @@
-# 🧠 Project Identity: Texas Rate
+# 🧠 Project Identity: Nola Rate
 
-This repository is **Texas Rate** — a mortgage lead generation and conversion platform.
+This repository is **Nola Rate** — a mortgage lead generation and conversion platform.
 
 ---
 
@@ -8,8 +8,8 @@ This repository is **Texas Rate** — a mortgage lead generation and conversion 
 
 You are working ONLY in this project.
 
-- Root directory: `C:\Users\xpone\apps\texas-rate`
-- GitHub repo: https://github.com/xponetial/Texas_Rate.git
+- Root directory: `C:\Users\xpone\apps\nola-rate`
+- GitHub repo: https://github.com/xponetial/Nola_Rate.git
 - Production domain: Managed outside this repository (do not deploy or modify DNS unless explicitly instructed)
 
 ### ❌ NEVER DO THIS
@@ -24,7 +24,7 @@ If uncertain → STOP and ask.
 
 ## 🧭 Project Context
 
-Texas Rate is:
+Nola Rate is:
 - Mortgage lead generation platform
 - Focused on converting visitors into loan applications
 - Integrates with:
@@ -96,7 +96,7 @@ This project has its own:
 Before making changes:
 
 1. Confirm working directory is:
-   `texas-rate`
+   `nola-rate`
 2. Read:
    - `AGENTS.md`
    - `README.md`
@@ -123,7 +123,7 @@ If there is ANY chance you are:
 
 You are operating inside:
 
-👉 Texas Rate ONLY  
+👉 Nola Rate ONLY  
 👉 This repo ONLY  
 👉 This environment ONLY  
 

@@ -39,14 +39,14 @@ function isRateLimited(ip: string) {
 async function sendLeadEmail(entry: Record<string, unknown>) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL;
-  const from = process.env.LEAD_FROM_EMAIL ?? "leads@updates.gulfrate.com";
+  const from = process.env.LEAD_FROM_EMAIL ?? "leads@updates.nolarate.com";
 
   if (!apiKey || !to) return;
 
   const lines = Object.entries(entry).map(([k, v]) => `${k}: ${String(v ?? "")}`);
   const text = lines.join("\n");
 
-  await fetch("https://api.resend.com/emails", {
+  const resendResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -59,6 +59,23 @@ async function sendLeadEmail(entry: Record<string, unknown>) {
       text,
     }),
   });
+
+  if (!resendResponse.ok) {
+    const errorText = await resendResponse.text().catch(() => "");
+    throw new Error(
+      `Resend API error (${resendResponse.status}): ${errorText || "Unknown error"}`
+    );
+  }
+}
+
+async function persistLeadEntry(entry: Record<string, unknown>) {
+  try {
+    await mkdir(dataDir, { recursive: true });
+    await appendFile(leadsFile, `${JSON.stringify(entry)}\n`, "utf8");
+  } catch (error) {
+    // Vercel/serverless filesystems may be read-only at runtime.
+    console.error("Lead persistence skipped:", error);
+  }
 }
 
 export async function POST(req: Request) {
@@ -92,10 +109,19 @@ export async function POST(req: Request) {
       source: "website_demo",
     };
 
-    await mkdir(dataDir, { recursive: true });
-    await appendFile(leadsFile, `${JSON.stringify(entry)}\n`, "utf8");
-    await sendLeadEmail(entry);
-    await sendLeadToAttio(entry);
+    await persistLeadEntry(entry);
+
+    try {
+      await sendLeadEmail(entry);
+    } catch (error) {
+      console.error("Lead email send failed:", error);
+    }
+
+    try {
+      await sendLeadToAttio(entry);
+    } catch (error) {
+      console.error("Lead CRM sync failed:", error);
+    }
 
     return Response.json({ ok: true });
   } catch {
@@ -105,3 +131,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
