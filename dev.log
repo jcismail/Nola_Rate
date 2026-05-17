@@ -1,0 +1,55 @@
+
+> nola-rate-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.4.27:3000
+- Environments: .env.local
+✓ Ready in 480ms
+Creating turbopack project { dir: 'C:\\Users\\xpone\\apps\\Nola_Rate', testMode: true }
+
+ POST /api/leads 200 in 618ms (next.js: 141ms, application-code: 478ms)
+ GET /thank-you?type=strategy_call 200 in 393ms (next.js: 110ms, application-code: 283ms)
+ GET / 200 in 59ms (next.js: 40ms, application-code: 19ms)
+ POST /api/leads 200 in 1655ms (next.js: 2ms, application-code: 1652ms)
+ GET /thank-you?type=strategy_call 200 in 26ms (next.js: 3ms, application-code: 23ms)
+ GET /thank-you?type=strategy_call 200 in 66ms (next.js: 5ms, application-code: 61ms)
+  Reload env: .env.local
+✓ Compiled in 0ms
+✓ Compiled in 75ms
+⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /thank-you?type=strategy_call 200 in 103ms (next.js: 40ms, application-code: 63ms)
+ GET /thank-you?type=strategy_call 200 in 224ms (next.js: 65ms, application-code: 159ms)
+ GET /thank-you?type=strategy_call 200 in 103ms (next.js: 61ms, application-code: 42ms)
+ GET /thank-you?type=strategy_call 200 in 369ms (next.js: 91ms, application-code: 277ms)
+ GET /thank-you?type=strategy_call 200 in 105ms (next.js: 11ms, application-code: 94ms)
+ GET /thank-you?type=strategy_call 200 in 232ms (next.js: 3ms, application-code: 229ms)
+ GET / 200 in 193ms (next.js: 59ms, application-code: 134ms)
+[browser] Image with src "/brand/john_america_fade.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+ GET / 200 in 45ms (next.js: 3ms, application-code: 41ms)
+[browser] Image with src "/brand/john_america_fade.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+  Reload env: .env.local
+✓ Compiled in 84ms
+  Reload env: .env.local
+ GET / 200 in 370ms (next.js: 192ms, application-code: 178ms)
+ GET / 200 in 54ms (next.js: 4ms, application-code: 50ms)
+ GET / 200 in 43ms (next.js: 3ms, application-code: 40ms)
+ GET / 200 in 42ms (next.js: 3ms, application-code: 39ms)
+ GET / 200 in 42ms (next.js: 3ms, application-code: 40ms)
+ GET / 200 in 38ms (next.js: 3ms, application-code: 36ms)
+ GET / 200 in 48ms (next.js: 4ms, application-code: 44ms)
+ GET / 200 in 42ms (next.js: 3ms, application-code: 38ms)
+ GET / 200 in 44ms (next.js: 3ms, application-code: 41ms)
+ GET / 200 in 39ms (next.js: 3ms, application-code: 36ms)
+ GET / 200 in 50ms (next.js: 3ms, application-code: 47ms)
+ GET / 200 in 47ms (next.js: 4ms, application-code: 44ms)
+ GET / 200 in 60ms (next.js: 4ms, application-code: 57ms)
+ GET / 200 in 47ms (next.js: 3ms, application-code: 45ms)
+ GET / 200 in 39ms (next.js: 3ms, application-code: 36ms)
+ GET / 200 in 42ms (next.js: 2ms, application-code: 40ms)
+ GET / 200 in 42ms (next.js: 3ms, application-code: 40ms)
+ GET / 200 in 42ms (next.js: 2ms, application-code: 40ms)
+[?25h

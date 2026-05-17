@@ -14,7 +14,8 @@ export default function ContactPage() {
     event.preventDefault();
     setState("submitting");
     setError("");
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       leadType: "contact_request",
       page: "/contact",
@@ -32,7 +33,7 @@ export default function ContactPage() {
         throw new Error(body.error || "Submission failed.");
       }
       setState("success");
-      event.currentTarget.reset();
+      form.reset();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");

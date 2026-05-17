@@ -1,4 +1,4 @@
-# Texas Rate
+# Nola Rate
 
 Conversion-focused mortgage lead generation demo site for Louisiana and Mississippi expansion.
 
@@ -31,3 +31,4 @@ Before production launch:
 - Complete C2 compliance/legal sign-off
 - Replace remaining placeholder contact/review links
 - Confirm CRM integration and analytics tracking
+

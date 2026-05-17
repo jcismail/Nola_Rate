@@ -37,7 +37,7 @@ export default async function ThankYouPage({
       <SiteHeader />
       <section className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-[#e6eefb]">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#1f6dd8]">
-          Gulf Rate Demo
+          Nola Rate Demo
         </p>
         <h1 className="mt-2 text-4xl font-bold text-[#172033]">{content.title}</h1>
         <p className="mt-3 text-lg text-[#43506b]">{content.next}</p>
@@ -60,3 +60,4 @@ export default async function ThankYouPage({
     </div>
   );
 }
+

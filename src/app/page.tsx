@@ -104,7 +104,8 @@ export default function Home() {
     setFormError("");
     setState("submitting");
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       leadType,
       page: "/",
@@ -125,7 +126,7 @@ export default function Home() {
         throw new Error(body.error || "submit failed");
       }
       setState("success");
-      event.currentTarget.reset();
+      form.reset();
       router.push(`/thank-you?type=${leadType}`);
     } catch (error) {
       setFormError(error instanceof Error ? error.message : "Submission failed. Please try again.");

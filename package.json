@@ -1,5 +1,5 @@
 {
-  "name": "texas-rate-app",
+  "name": "nola-rate-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "evidence:pack": "node scripts/generate-evidence-pack.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"

@@ -1,15 +1,23 @@
-# 🧠 Project Identity: Texas Rate
+# 🧠 Project Identity: Nola Rate
 
-This repository is **Texas Rate** — a mortgage lead generation and conversion platform.
+This repository is **Nola Rate** — a mortgage lead generation and conversion platform.
 
 ---
+
+This project MUST ONLY use:
+- John's GitHub account
+- John's Vercel organization
+- John's Supabase project
+- John's OpenAI keys
+
+Never use Party Swami credentials or infrastructure.
 
 ## 🚨 HARD PROJECT BOUNDARY (CRITICAL)
 
 You are working ONLY in this project.
 
-- Root directory: `C:\Users\xpone\apps\texas-rate`
-- GitHub repo: https://github.com/xponetial/Texas_Rate.git
+- Root directory: `C:\Users\xpone\apps\nola-rate`
+- GitHub repo: https://github.com/jcismail/Nola_Rate.git
 - Production domain: Managed outside this repository (do not deploy or modify DNS unless explicitly instructed)
 
 ### ❌ NEVER DO THIS
@@ -24,7 +32,7 @@ If uncertain → STOP and ask.
 
 ## 🧭 Project Context
 
-Texas Rate is:
+Nola Rate is:
 - Mortgage lead generation platform
 - Focused on converting visitors into loan applications
 - Integrates with:
@@ -96,7 +104,7 @@ This project has its own:
 Before making changes:
 
 1. Confirm working directory is:
-   `texas-rate`
+   `nola-rate`
 2. Read:
    - `AGENTS.md`
    - `README.md`
@@ -123,8 +131,105 @@ If there is ANY chance you are:
 
 You are operating inside:
 
-👉 Texas Rate ONLY  
+👉 Nola Rate ONLY  
 👉 This repo ONLY  
 👉 This environment ONLY  
 
 No cross-project assumptions. Ever.
+
+# 🚨 SUPABASE ENVIRONMENT RESTRICTIONS (CRITICAL)
+
+All agents, Codex sessions, Claude sessions, scripts, automations, previews, local development servers, and deployments MUST follow these rules exactly.
+
+---
+
+# 🔐 REQUIRED SUPABASE ACCOUNT
+
+Agents MUST always use:
+
+- John's GitHub-linked Supabase account credentials
+- The official Nola_Rate Supabase organization/project only
+
+Agents MUST NOT:
+- Create new Supabase organizations
+- Create personal Supabase projects
+- Use temporary Supabase projects
+- Use any Supabase project outside the approved Nola_Rate environment
+
+---
+
+# 🧪 DEVELOPMENT + PREVIEW ENVIRONMENT
+
+The following Supabase project/database MUST be used for:
+
+- Local development
+- Development servers
+- Vercel preview deployments
+- Feature branches
+- Worktrees
+- Stage testing
+- QA testing
+- AI testing
+- Experimental development
+
+## Approved Development Database
+
+Project Name:
+`Nola_Rate`
+
+Database Environment:
+`Nola_Rate_Dev`
+
+Supabase URL:
+`https://tythlslvjxydxxezmajf.supabase.co`
+
+Publishable Key:
+`sb_publishable_4-Y2dvSiYhrgOt3pHra5Fw_3-XfpbAK`
+
+---
+
+# 🚀 PRODUCTION ENVIRONMENT
+
+The following MUST ONLY be used for production deployments.
+
+## Approved Production Database
+
+Project Name:
+`Nola_Rate`
+
+Database Environment:
+`Nola_Rate_Prod`
+
+Supabase URL:
+`https://vfgsunjardkdimkbysrv.supabase.co`
+
+Publishable Key:
+`sb_publishable_Uctd4fMHmvVlkgb85VdLWg_R2tJ1hRs`
+
+---
+
+# 🚫 PROHIBITED ACTIONS
+
+Agents MUST NEVER:
+
+- Point local development to production
+- Point preview deployments to production
+- Run destructive migrations against production
+- Seed fake/test data into production
+- Use production credentials for feature branches
+- Create additional Supabase projects without explicit approval
+- Modify production environment variables during development work
+- Hardcode Supabase secrets into source code
+- Commit service role keys into GitHub
+
+---
+
+# ✅ REQUIRED ENVIRONMENT RULES
+
+## Local Development + Preview Deployments
+
+MUST use:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://tythlslvjxydxxezmajf.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_4-Y2dvSiYhrgOt3pHra5Fw_3-XfpbAK

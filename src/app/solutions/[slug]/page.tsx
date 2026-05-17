@@ -422,7 +422,7 @@ export async function generateMetadata({
   if (!page) return { title: "Not Found" };
 
   return {
-    title: `${page.title} | Gulf Rate`,
+    title: `${page.title} | Nola Rate`,
     description: page.subtitle,
   };
 }
@@ -513,3 +513,4 @@ export default async function SolutionPage({
     </div>
   );
 }
+
