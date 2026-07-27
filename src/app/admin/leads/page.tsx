@@ -99,9 +99,9 @@ export default async function AdminLeadsPage() {
   if (process.env.NODE_ENV === "production") {
     return (
       <main className="mx-auto min-h-screen max-w-4xl px-6 py-12 md:px-8">
-        <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
+        <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e6eefb]">
           <h1 className="text-2xl font-bold text-[#172033]">Admin Leads</h1>
-          <p className="mt-2 text-[#4c5265]">
+          <p className="mt-2 text-[#43506b]">
             This page is disabled in production.
           </p>
         </section>
@@ -115,9 +115,9 @@ export default async function AdminLeadsPage() {
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-6 py-12 md:px-8">
-      <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
+      <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e6eefb]">
         <h1 className="text-3xl font-bold text-[#172033]">Lead Health</h1>
-        <p className="mt-2 text-[#4c5265]">
+        <p className="mt-2 text-[#43506b]">
           Showing latest {leads.length} submissions from {sourceLabel}.
         </p>
         <div className="mt-5 overflow-auto">
@@ -134,7 +134,7 @@ export default async function AdminLeadsPage() {
             <tbody>
               {leads.map((lead, i) => (
                 <tr key={`${lead.receivedAt ?? "n/a"}-${i}`} className="border-b border-[#eef2fa]">
-                  <td className="px-3 py-2 text-[#4c5265]">{String(lead.receivedAt ?? "")}</td>
+                  <td className="px-3 py-2 text-[#43506b]">{String(lead.receivedAt ?? "")}</td>
                   <td className="px-3 py-2 text-[#172033]">{String(lead.leadType ?? "")}</td>
                   <td className="px-3 py-2 text-[#172033]">{String(lead.name ?? "")}</td>
                   <td className="px-3 py-2 text-[#172033]">{String(lead.email ?? "")}</td>
@@ -144,7 +144,7 @@ export default async function AdminLeadsPage() {
             </tbody>
           </table>
           {leads.length === 0 && (
-            <p className="mt-4 text-sm text-[#5f6270]">No leads logged yet.</p>
+            <p className="mt-4 text-sm text-[#5d6d86]">No leads logged yet.</p>
           )}
         </div>
       </section>

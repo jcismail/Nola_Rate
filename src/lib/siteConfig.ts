@@ -1,13 +1,11 @@
 const DEFAULT_CONTACT_PHONE = "469.226.2429";
 const DEFAULT_CONTACT_EMAIL = "john@example.com";
 const DEFAULT_REVIEW_URL = "/contact";
-const DEFAULT_LINKEDIN_URL = "https://www.linkedin.com/in/johnismail";
 
 export const siteConfig = {
   contactPhone: process.env.NEXT_PUBLIC_CONTACT_PHONE?.trim() || DEFAULT_CONTACT_PHONE,
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || DEFAULT_CONTACT_EMAIL,
   reviewUrl: process.env.NEXT_PUBLIC_REVIEW_URL?.trim() || DEFAULT_REVIEW_URL,
-  linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim() || DEFAULT_LINKEDIN_URL,
 };
 
 export function toTelHref(phone: string) {

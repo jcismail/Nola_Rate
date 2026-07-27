@@ -1,84 +1,54 @@
-import Image from "next/image";
 import Link from "next/link";
-import { applicationUrl } from "@/lib/application";
-import { siteConfig } from "@/lib/siteConfig";
+
+const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() || "/book-call";
 
 export default function SiteHeader() {
   return (
-    <header className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#2b3672] bg-[#121e5b] p-4 shadow-lg shadow-[#121e5b]/15">
-      <Link href="/" className="flex items-center">
-        <Image
-          src="/brand/nola-rate-logo.png"
-          alt="Nola Rate Mortgage Advisory"
-          width={455}
-          height={130}
-          priority
-          className="h-auto w-[230px] sm:w-[300px]"
-        />
+    <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <Link href="/" className="flex items-center gap-3">
+        <div className="grid h-12 w-12 place-items-center rounded-full bg-[#0fa5d7] text-3xl font-black leading-none text-white">
+          %
+        </div>
+        <div>
+          <p className="text-4xl font-black uppercase tracking-tight text-[#1a2337]">
+            Nola<span className="ml-1.5 text-[#0fa5d7]">Rate</span>
+          </p>
+          <p className="mt-[-2px] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5f6f8d]">
+            Louisiana & Mississippi
+          </p>
+        </div>
       </Link>
 
       <div className="flex flex-wrap items-center gap-3">
-        <nav className="flex flex-wrap items-center gap-2 text-xs font-semibold text-white">
-          <Link className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]" href="/">
+        <nav className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#12345a]">
+          <Link className="rounded-full border border-[#c7daf8] bg-white px-3 py-1.5" href="/">
             Home
           </Link>
           <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
+            className="rounded-full border border-[#c7daf8] bg-white px-3 py-1.5"
             href="/realtor-partner"
           >
             Realtor Program
           </Link>
           <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
+            className="rounded-full border border-[#c7daf8] bg-white px-3 py-1.5"
             href="/contact"
           >
             Contact
           </Link>
           <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/rate-quote"
-          >
-            Rate Quote
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/mortgage-calculator"
-          >
-            Calculator
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/texas"
-          >
-            Texas
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/mississippi"
-          >
-            Mississippi
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
+            className="rounded-full border border-[#c7daf8] bg-white px-3 py-1.5"
             href="/review-us"
           >
             Review Us
           </Link>
           <a
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 text-white hover:bg-white hover:text-[#121e5b]"
-            href={siteConfig.linkedinUrl}
+            className="rounded-full border border-[#c7daf8] bg-white px-3 py-1.5"
+            href={calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            LinkedIn
-          </a>
-          <a
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 text-white hover:bg-white hover:text-[#121e5b]"
-            href={applicationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Apply Now
+            Book Call
           </a>
         </nav>
       </div>
