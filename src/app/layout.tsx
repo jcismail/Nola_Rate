@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Mortgage Group | Louisiana & Mississippi Mortgage Guide",
+  title: "Nola Rate Mortgage Advisory | Louisiana & Mississippi Mortgage Guide",
   description:
-    "Conversion-focused demo for John's expansion into Louisiana and Mississippi mortgage services.",
+    "Nola Rate Mortgage Advisory helps Louisiana and Mississippi buyers explore mortgage options with clear, personal guidance.",
 };
 
 export default function RootLayout({

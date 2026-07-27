@@ -183,6 +183,162 @@ const pages: Record<string, SolutionPageConfig> = {
       },
     ],
   },
+  "jumbo-loans": {
+    title: "Jumbo Loans",
+    navLabel: "Jumbo",
+    subtitle: "Mortgage options for higher-value homes.",
+    heroImage: "/brand/john_america_fade.png",
+    introHeadline: "Financing strategy for higher loan amounts",
+    introText:
+      "Jumbo loans can help qualified buyers finance homes above standard conforming loan limits. John helps compare lender requirements, payment structure, reserves, and long-term fit before you make an offer.",
+    sections: [
+      {
+        title: "When jumbo fits",
+        bullets: [
+          "Homes priced above conforming loan limits",
+          "Primary residence, second home, and select investment scenarios",
+          "Buyers who want a clear payment and reserve strategy before shopping",
+        ],
+      },
+      {
+        title: "What lenders review",
+        bullets: [
+          "Credit strength and debt-to-income profile",
+          "Verified income, assets, and cash reserves",
+          "Property type, appraisal, and loan-to-value details",
+        ],
+      },
+      {
+        title: "How John helps",
+        bullets: [
+          "Compares jumbo options across lender guidelines",
+          "Explains tradeoffs between down payment, rate, and reserves",
+          "Builds a documentation plan for a cleaner approval process",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What makes a loan a jumbo loan?",
+        answer:
+          "A jumbo loan is generally a mortgage amount above the conforming loan limit for the property location. Limits can change, so John verifies the current threshold for your scenario.",
+      },
+      {
+        question: "Do jumbo loans require more down payment?",
+        answer:
+          "Often they do, but requirements vary by lender, loan amount, credit profile, and reserves. John compares options before you commit to one structure.",
+      },
+      {
+        question: "Can jumbo loans be used for second homes?",
+        answer:
+          "Yes, many lenders offer jumbo options for eligible second homes, subject to borrower, property, and reserve requirements.",
+      },
+    ],
+  },
+  "investor-loans": {
+    title: "Investor Loans",
+    navLabel: "Investor",
+    subtitle: "Financing options for rental and investment properties.",
+    heroImage: "/brand/outside-box-hero.jpg",
+    introHeadline: "Mortgage strategy for real estate investors",
+    introText:
+      "Investor financing is about more than getting approved. John helps evaluate cash flow, property goals, documentation options, and lender fit for rental purchases, refinances, and portfolio growth.",
+    sections: [
+      {
+        title: "Property goals",
+        bullets: [
+          "Single rental property purchases",
+          "Portfolio expansion and cash-out refinance planning",
+          "Short-term rental and long-term rental scenarios",
+        ],
+      },
+      {
+        title: "Program options",
+        bullets: [
+          "Conventional investment-property financing",
+          "DSCR options focused on property cash flow",
+          "Non-QM pathways for complex income or entity-owned scenarios",
+        ],
+      },
+      {
+        title: "Approval planning",
+        bullets: [
+          "Review expected rent, reserves, and monthly payment",
+          "Compare rate, points, and cash-to-close tradeoffs",
+          "Structure documentation around your investment strategy",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What is a DSCR investor loan?",
+        answer:
+          "A DSCR loan focuses on the investment property's income compared with its debt payment, which can help investors who do not fit traditional income documentation.",
+      },
+      {
+        question: "Can I finance a rental property without W2 income?",
+        answer:
+          "Possibly. Some investor programs use alternative documentation or property cash flow, depending on the lender and the full scenario.",
+      },
+      {
+        question: "Can investor loans be used for cash-out refinances?",
+        answer:
+          "Yes, many investor programs allow cash-out refinances for qualified borrowers and properties. Terms depend on equity, property type, and lender guidelines.",
+      },
+    ],
+  },
+  "down-payment-assistance": {
+    title: "Down Payment Assistance",
+    navLabel: "Assistance",
+    subtitle: "Programs that may reduce upfront cash needed to buy.",
+    heroImage: "/brand/zero-down-hero.jpg",
+    introHeadline: "Help with the cash needed to get into a home",
+    introText:
+      "Down payment assistance can be a practical path for qualified buyers who are ready for homeownership but need help with upfront funds. John helps identify eligible programs and explains how they pair with your loan.",
+    sections: [
+      {
+        title: "Who it may help",
+        bullets: [
+          "First-time buyers building a path to purchase",
+          "Qualified buyers with stable income but limited saved funds",
+          "Families comparing FHA, conventional, USDA, or local assistance options",
+        ],
+      },
+      {
+        title: "What to check",
+        bullets: [
+          "Income limits and household eligibility",
+          "Property location and occupancy requirements",
+          "Repayment, forgivable, grant, or second-lien program terms",
+        ],
+      },
+      {
+        title: "John's process",
+        bullets: [
+          "Review your full borrower profile and target area",
+          "Compare assistance options against total monthly payment",
+          "Coordinate lender and program requirements early",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is down payment assistance free money?",
+        answer:
+          "Sometimes assistance may be structured as a grant or forgivable amount, but many programs have specific terms. John explains the details before you rely on the funds.",
+      },
+      {
+        question: "Can assistance be combined with FHA?",
+        answer:
+          "In many cases, yes. Compatibility depends on the assistance program, lender rules, and borrower eligibility.",
+      },
+      {
+        question: "Do assistance programs slow down closing?",
+        answer:
+          "They can add steps, which is why early planning matters. John helps identify requirements upfront so the timeline stays realistic.",
+      },
+    ],
+  },
   "conventional-loans": {
     title: "Conventional Loans",
     navLabel: "Conventional",
@@ -452,7 +608,7 @@ export default async function SolutionPage({
       : null;
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#dbe8fb_37%,#f6f7fb_80%)]">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#f1e7ba_37%,#f7f6ef_80%)]">
       <div className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
         <SiteHeader />
       </div>
@@ -467,15 +623,15 @@ export default async function SolutionPage({
 
       <main className="mx-auto max-w-7xl px-6 py-12 md:px-8">
         <section className="text-center">
-          <h2 className="text-5xl font-bold text-[#071c4e]">{page.introHeadline}</h2>
-          <p className="mx-auto mt-3 max-w-5xl text-2xl leading-10 text-[#667790]">{page.introText}</p>
+          <h2 className="text-5xl font-bold text-[#121e5b]">{page.introHeadline}</h2>
+          <p className="mx-auto mt-3 max-w-5xl text-2xl leading-10 text-[#5f6270]">{page.introText}</p>
         </section>
 
         <section className={`mt-10 grid gap-8 ${page.sections.length >= 4 ? "md:grid-cols-2 xl:grid-cols-4" : page.sections.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
           {page.sections.map((section) => (
-            <article key={section.title} className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e7eaf2]">
-              <h3 className="text-4xl font-bold text-[#071c4e]">{section.title}</h3>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-xl leading-9 text-[#667790]">
+            <article key={section.title} className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
+              <h3 className="text-4xl font-bold text-[#121e5b]">{section.title}</h3>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-xl leading-9 text-[#5f6270]">
                 {section.bullets.map((bullet) => (
                   <li key={bullet}>{bullet}</li>
                 ))}
@@ -485,22 +641,22 @@ export default async function SolutionPage({
         </section>
 
         {page.faqs && page.faqs.length > 0 && (
-          <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e7eaf2]">
-            <h2 className="text-3xl font-bold text-[#071c4e]">Frequently Asked Questions</h2>
+          <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
+            <h2 className="text-3xl font-bold text-[#121e5b]">Frequently Asked Questions</h2>
             <div className="mt-4 space-y-4">
               {page.faqs.map((faq) => (
-                <article key={faq.question} className="rounded-lg border border-[#e6ebf5] p-4">
-                  <h3 className="text-xl font-semibold text-[#102a52]">{faq.question}</h3>
-                  <p className="mt-1 text-[#5d6d86]">{faq.answer}</p>
+                <article key={faq.question} className="rounded-lg border border-[#e5dcc0] p-4">
+                  <h3 className="text-xl font-semibold text-[#121e5b]">{faq.question}</h3>
+                  <p className="mt-1 text-[#5f6270]">{faq.answer}</p>
                 </article>
               ))}
             </div>
           </section>
         )}
 
-        <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e7eaf2]">
-          <p className="text-center text-3xl text-[#071c4e]">
-            Text/call: <a href="tel:+14692262429" className="text-[#129bd0]">469.226.2429</a>
+        <section className="mt-10 rounded-xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
+          <p className="text-center text-3xl text-[#121e5b]">
+            Text/call: <a href="tel:+14692262429" className="text-[#b27b00]">469.226.2429</a>
           </p>
         </section>
       </main>

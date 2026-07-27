@@ -173,6 +173,13 @@ export async function POST(req: Request) {
       );
     }
 
+    if (payload.leadType === "rate_quote" && !payload.phone) {
+      return Response.json(
+        { ok: false, error: "Phone number is required for rate quote requests" },
+        { status: 400 }
+      );
+    }
+
     const entry = {
       ...payload,
       company_website: undefined,

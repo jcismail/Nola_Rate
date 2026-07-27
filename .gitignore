@@ -39,6 +39,7 @@ yarn-error.log*
 
 # local runtime logs
 .devserver.log
+.next-dev.*.log
 
 # vercel
 .vercel

@@ -3,7 +3,7 @@ import Image from "next/image";
 const NMLS_CONSUMER_ACCESS_URL = "https://www.nmlsconsumeraccess.org";
 export default function ComplianceFooter() {
   return (
-    <footer className="mt-auto border-t border-[#0c1b4a] bg-[#020a39] text-white">
+    <footer className="mt-auto border-t border-[#ffd534] bg-[#081244] text-white">
       <div className="mx-auto max-w-6xl px-6 py-6 text-xs leading-5 md:px-8">
         <div className="mb-5 flex flex-wrap items-center gap-6">
           <Image
