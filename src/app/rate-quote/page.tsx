@@ -79,12 +79,21 @@ export default function RateQuotePage() {
             <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
               A clearer quote starts with the right details.
             </h1>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-white/70">
+              John Ismail · Mortgage Broker · NMLS #{siteConfig.nmls}
+            </p>
             <p className="mt-4 text-lg leading-8 text-white/82">
               Tell John whether you are buying or refinancing, where the property is,
               and what kind of loan goal you have in mind. Email and phone are required
               so he can follow up with complete next steps.
             </p>
             <div className="mt-7 space-y-3 rounded-2xl bg-white/10 p-5 text-sm leading-6">
+              <p>
+                <strong>New Orleans:</strong>{" "}
+                <a href={toTelHref(siteConfig.newOrleansPhone)} className="underline">
+                  {siteConfig.newOrleansPhone}
+                </a>
+              </p>
               <p>
                 <strong>Call/Text:</strong>{" "}
                 <a href={toTelHref(siteConfig.contactPhone)} className="underline">
@@ -256,6 +265,19 @@ export default function RateQuotePage() {
                 <span>
                   I agree that John may contact me by phone, text, or email about my
                   mortgage request. Message and data rates may apply.
+                </span>
+              </label>
+
+              <label className="flex items-start gap-3 rounded-2xl border border-[#e2d6b5] bg-white p-4 text-sm text-[#4c5265]">
+                <input
+                  type="checkbox"
+                  name="marketingOptOut"
+                  value="yes"
+                  className="mt-1"
+                />
+                <span>
+                  Opt me out of marketing emails and marketing phone calls. Only contact
+                  me about this mortgage request.
                 </span>
               </label>
 

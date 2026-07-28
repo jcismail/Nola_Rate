@@ -24,18 +24,6 @@ export default function SiteHeader() {
           </Link>
           <Link
             className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/realtor-partner"
-          >
-            Realtor Program
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/contact"
-          >
-            Contact
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
             href="/rate-quote"
           >
             Rate Quote
@@ -48,21 +36,9 @@ export default function SiteHeader() {
           </Link>
           <Link
             className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/texas"
+            href="/contact"
           >
-            Texas
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/mississippi"
-          >
-            Mississippi
-          </Link>
-          <Link
-            className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"
-            href="/review-us"
-          >
-            Review Us
+            Questions
           </Link>
           <a
             className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 text-white hover:bg-white hover:text-[#121e5b]"

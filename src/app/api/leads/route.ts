@@ -115,7 +115,7 @@ async function persistLeadToSupabase(entry: Record<string, unknown>) {
     down_payment_range: toNullableText(entry.down_payment_range ?? entry.downPaymentRange),
     target_home_price: toNullableNumber(entry.target_home_price ?? entry.purchasePrice),
     timeline: toNullableText(entry.timeline),
-    consent_to_contact: false,
+    consent_to_contact: entry.consentToContact === "yes",
     status: "new",
   };
 
@@ -173,9 +173,12 @@ export async function POST(req: Request) {
       );
     }
 
-    if (payload.leadType === "rate_quote" && !payload.phone) {
+    if (
+      (payload.leadType === "rate_quote" || payload.leadType === "contact_request") &&
+      !payload.phone
+    ) {
       return Response.json(
-        { ok: false, error: "Phone number is required for rate quote requests" },
+        { ok: false, error: "Phone number is required for this request" },
         { status: 400 }
       );
     }

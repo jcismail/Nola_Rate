@@ -51,10 +51,12 @@ export default function ContactPage() {
             Reach out for friendly, family-focused guidance on purchase, refinance, and next-step planning.
           </p>
           <div className="mt-5 space-y-2 text-[#172033]">
+            <p><strong>New Orleans:</strong> <a href={toTelHref(siteConfig.newOrleansPhone)} className="text-[#b27b00]">{siteConfig.newOrleansPhone}</a></p>
             <p><strong>Call/Text:</strong> <a href={toTelHref(siteConfig.contactPhone)} className="text-[#b27b00]">{siteConfig.contactPhone}</a></p>
             <p><strong>Email:</strong> <a href={`mailto:${siteConfig.contactEmail}`} className="text-[#b27b00]">{siteConfig.contactEmail}</a></p>
+            <p><strong>NMLS:</strong> #{siteConfig.nmls}</p>
             <p><strong>LinkedIn:</strong> <a href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#b27b00]">Connect with John</a></p>
-            <p><strong>Service Area:</strong> Louisiana and Mississippi</p>
+            <p><strong>Service Area:</strong> Texas, Louisiana, and Mississippi</p>
           </div>
         </article>
 
@@ -68,8 +70,33 @@ export default function ContactPage() {
             <label htmlFor="contact-message" className="sr-only">Message</label>
             <input id="contact-name" name="name" required placeholder="Full Name" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
             <input id="contact-email" name="email" required type="email" placeholder="Email" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
-            <input id="contact-phone" name="phone" placeholder="Phone" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
+            <input id="contact-phone" name="phone" required placeholder="Phone" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
             <textarea id="contact-message" name="message" rows={4} required placeholder="How can we help?" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
+            <label className="flex items-start gap-3 rounded-lg border border-[#e2d6b5] bg-[#fffdf3] p-3 text-sm text-[#4c5265]">
+              <input
+                type="checkbox"
+                name="consentToContact"
+                value="yes"
+                required
+                className="mt-1"
+              />
+              <span>
+                I agree that John may contact me by phone, text, or email about my
+                request. Message and data rates may apply.
+              </span>
+            </label>
+            <label className="flex items-start gap-3 rounded-lg border border-[#e2d6b5] p-3 text-sm text-[#4c5265]">
+              <input
+                type="checkbox"
+                name="marketingOptOut"
+                value="yes"
+                className="mt-1"
+              />
+              <span>
+                Opt me out of marketing emails and marketing phone calls. Only contact
+                me about this request.
+              </span>
+            </label>
             <button type="submit" className="rounded-lg bg-[#121e5b] px-4 py-2.5 font-semibold text-white hover:bg-[#081244]">
               {state === "submitting" ? "Submitting..." : "Send Message"}
             </button>
