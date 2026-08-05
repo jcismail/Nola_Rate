@@ -18,13 +18,13 @@ function numberValue(value: string) {
 }
 
 export default function MortgageCalculator() {
-  const [homePrice, setHomePrice] = useState("400000");
-  const [downPayment, setDownPayment] = useState("40000");
-  const [interestRate, setInterestRate] = useState("6.75");
+  const [homePrice, setHomePrice] = useState("");
+  const [downPayment, setDownPayment] = useState("");
+  const [interestRate, setInterestRate] = useState("");
   const [loanTerm, setLoanTerm] = useState("30");
-  const [taxes, setTaxes] = useState("450");
-  const [insurance, setInsurance] = useState("175");
-  const [hoa, setHoa] = useState("0");
+  const [taxes, setTaxes] = useState("");
+  const [insurance, setInsurance] = useState("");
+  const [hoa, setHoa] = useState("");
 
   const result = useMemo(() => {
     const principal = Math.max(numberValue(homePrice) - numberValue(downPayment), 0);
@@ -65,18 +65,20 @@ export default function MortgageCalculator() {
         <label className="grid gap-1 text-sm font-semibold text-[#172033]">
           Home Price
           <input
-            className={inputClass}
+            className={`${inputClass} placeholder:text-slate-400`}
             inputMode="decimal"
             value={homePrice}
+            placeholder="e.g. 400,000"
             onChange={(event) => setHomePrice(event.target.value)}
           />
         </label>
         <label className="grid gap-1 text-sm font-semibold text-[#172033]">
           Down Payment
           <input
-            className={inputClass}
+            className={`${inputClass} placeholder:text-slate-400`}
             inputMode="decimal"
             value={downPayment}
+            placeholder="e.g. 40,000"
             onChange={(event) => setDownPayment(event.target.value)}
           />
         </label>
@@ -84,9 +86,10 @@ export default function MortgageCalculator() {
           <label className="grid gap-1 text-sm font-semibold text-[#172033]">
             Interest Rate
             <input
-              className={inputClass}
+              className={`${inputClass} placeholder:text-slate-400`}
               inputMode="decimal"
               value={interestRate}
+              placeholder="e.g. 6.75"
               onChange={(event) => setInterestRate(event.target.value)}
             />
           </label>
@@ -108,31 +111,37 @@ export default function MortgageCalculator() {
           <label className="grid gap-1 text-sm font-semibold text-[#172033]">
             Monthly Taxes
             <input
-              className={inputClass}
+              className={`${inputClass} placeholder:text-slate-400`}
               inputMode="decimal"
               value={taxes}
+              placeholder="e.g. 450"
               onChange={(event) => setTaxes(event.target.value)}
             />
           </label>
           <label className="grid gap-1 text-sm font-semibold text-[#172033]">
             Insurance
             <input
-              className={inputClass}
+              className={`${inputClass} placeholder:text-slate-400`}
               inputMode="decimal"
               value={insurance}
+              placeholder="e.g. 175"
               onChange={(event) => setInsurance(event.target.value)}
             />
           </label>
           <label className="grid gap-1 text-sm font-semibold text-[#172033]">
             HOA
             <input
-              className={inputClass}
+              className={`${inputClass} placeholder:text-slate-400`}
               inputMode="decimal"
               value={hoa}
+              placeholder="e.g. 0"
               onChange={(event) => setHoa(event.target.value)}
             />
           </label>
         </div>
+        <p className="text-xs leading-5 text-[#5f6270]">
+          Estimated payment figures do not include potential mortgage insurance and program fees that may affect the total loan amount and monthly payment.
+        </p>
       </form>
 
       <aside className="rounded-2xl bg-[#121e5b] p-6 text-white shadow-xl shadow-[#121e5b]/20 md:p-8">

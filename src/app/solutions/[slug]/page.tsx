@@ -32,7 +32,7 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/low-credit-hero.jpeg",
     introHeadline: "Have a low credit score? We might be able to help!",
     introText:
-      "Program and lender guidelines can support borrowers with developing credit profiles. Qualification depends on full borrower and property review.",
+      "These programs are designed for borrowers with developing credit profiles who may need more flexible qualification standards. We review your full income, payment, and property picture to find the right lender fit.",
     sections: [
       {
         title: "FHA requirements",
@@ -78,7 +78,7 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/outside-box-hero.jpg",
     introHeadline: "Self-employed or have non-traditional income?",
     introText:
-      "We offer Bank Statement loans, 1099-only, DSCR (no-income-doc investor loans), and other flexible options.",
+      "These non-traditional mortgage paths can help self-employed borrowers, business owners, and investors who do not fit a standard W-2 income profile. We look at real cash flow and documentation strategy instead of only traditional salary-based income.",
     sections: [
       {
         title: "Bank Statement Program",
@@ -138,7 +138,7 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/zero-down-hero.jpg",
     introHeadline: "Need extra help with down payment?",
     introText:
-      "Have you found a home but need additional help for down payment? We have solutions.",
+      "For buyers who are ready to purchase but need help with upfront cash, assistance programs may reduce the required down payment or closing costs. We compare available options and explain their terms before you rely on them.",
     sections: [
       {
         title: "Down Payment Assistance",
@@ -190,7 +190,7 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/john_america_fade.png",
     introHeadline: "Financing strategy for higher loan amounts",
     introText:
-      "Jumbo loans can help qualified buyers finance homes above standard conforming loan limits. John helps compare lender requirements, payment structure, reserves, and long-term fit before you make an offer.",
+      "Jumbo loans are used when a home purchase exceeds the conforming loan limit for the property location. John compares reserve requirements, payment structure, and lender fit so you can decide if the loan truly aligns with your buying goals.",
     sections: [
       {
         title: "When jumbo fits",
@@ -242,7 +242,7 @@ const pages: Record<string, SolutionPageConfig> = {
     heroImage: "/brand/outside-box-hero.jpg",
     introHeadline: "Mortgage strategy for real estate investors",
     introText:
-      "Investor financing is about more than getting approved. John helps evaluate cash flow, property goals, documentation options, and lender fit for rental purchases, refinances, and portfolio growth.",
+      "Investor financing is about more than a quick approval. John helps review property cash flow, loan structure, documentation needs, and lender fit for rental purchases, refinances, and portfolio growth.",
     sections: [
       {
         title: "Property goals",

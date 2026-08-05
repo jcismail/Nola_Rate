@@ -1,0 +1,7 @@
+docs/
+images/
+logos/
+
+.next-dev.*.log
+playwright-report/
+test-results/

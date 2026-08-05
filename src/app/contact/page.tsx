@@ -85,18 +85,6 @@ export default function ContactPage() {
                 request. Message and data rates may apply.
               </span>
             </label>
-            <label className="flex items-start gap-3 rounded-lg border border-[#e2d6b5] p-3 text-sm text-[#4c5265]">
-              <input
-                type="checkbox"
-                name="marketingOptOut"
-                value="yes"
-                className="mt-1"
-              />
-              <span>
-                Opt me out of marketing emails and marketing phone calls. Only contact
-                me about this request.
-              </span>
-            </label>
             <button type="submit" className="rounded-lg bg-[#121e5b] px-4 py-2.5 font-semibold text-white hover:bg-[#081244]">
               {state === "submitting" ? "Submitting..." : "Send Message"}
             </button>

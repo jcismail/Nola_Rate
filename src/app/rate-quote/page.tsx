@@ -12,6 +12,8 @@ export default function RateQuotePage() {
   const router = useRouter();
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
+  const [transactionType, setTransactionType] = useState<"purchase" | "refinance" | "">("");
+  const [downPaymentMode, setDownPaymentMode] = useState<"amount" | "percent">("amount");
 
   const utm = useMemo(() => {
     if (typeof window === "undefined") return {};
@@ -151,11 +153,25 @@ export default function RateQuotePage() {
                 </legend>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="flex items-center gap-3 rounded-lg border border-[#e2d6b5] bg-white px-4 py-3 text-sm font-semibold text-[#172033]">
-                    <input type="radio" name="transactionType" value="purchase" required />
+                    <input
+                      type="radio"
+                      name="transactionType"
+                      value="purchase"
+                      checked={transactionType === "purchase"}
+                      onChange={() => setTransactionType("purchase")}
+                      required
+                    />
                     Purchase
                   </label>
                   <label className="flex items-center gap-3 rounded-lg border border-[#e2d6b5] bg-white px-4 py-3 text-sm font-semibold text-[#172033]">
-                    <input type="radio" name="transactionType" value="refinance" required />
+                    <input
+                      type="radio"
+                      name="transactionType"
+                      value="refinance"
+                      checked={transactionType === "refinance"}
+                      onChange={() => setTransactionType("refinance")}
+                      required
+                    />
                     Refinance
                   </label>
                 </div>
@@ -214,12 +230,25 @@ export default function RateQuotePage() {
 
               <div className="grid gap-4 md:grid-cols-2">
                 <label className={labelClass}>
-                  Estimated Purchase Price or Home Value
-                  <input name="target_home_price" inputMode="decimal" className={inputClass} />
+                  {transactionType === "purchase" ? "Estimated Purchase Price" : "Estimated Property Value"}
+                  <input
+                    name="target_home_price"
+                    inputMode="decimal"
+                    className={inputClass}
+                    placeholder={transactionType === "purchase" ? "e.g. 450,000" : "e.g. 550,000"}
+                  />
                 </label>
                 <label className={labelClass}>
-                  Down Payment or Current Equity
-                  <input name="down_payment_range" className={inputClass} />
+                  {transactionType === "purchase" ? "Down Payment" : "Current Equity / Loan Balance"}
+                  <input
+                    name="down_payment_range"
+                    className={inputClass}
+                    placeholder={transactionType === "purchase" ? "e.g. 20% or 90,000" : "e.g. 40% or 250,000"}
+                  />
+                </label>
+                <label className={labelClass}>
+                  Existing Loan Balance(s)
+                  <input name="existing_loan_balance" className={inputClass} placeholder="e.g. 275,000" />
                 </label>
                 <label className={labelClass}>
                   Credit Range
@@ -241,6 +270,53 @@ export default function RateQuotePage() {
                     <option>Second Home</option>
                     <option>Investment Property</option>
                   </select>
+                </label>
+                <div className={labelClass}>
+                  <span>How did you hear about us?</span>
+                  <select name="referral_source" className={inputClass} defaultValue="">
+                    <option value="">Choose one</option>
+                    <option>Realtor</option>
+                    <option>Friend / Family</option>
+                    <option>Financial Advisor</option>
+                    <option>Web search</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-[#e2d6b5] bg-[#fffdf3] p-4">
+                  <p className="text-sm font-bold text-[#121e5b]">Down payment type</p>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] bg-white px-3 py-2 text-sm font-semibold text-[#172033]">
+                      <input
+                        type="radio"
+                        name="downPaymentMode"
+                        value="amount"
+                        checked={downPaymentMode === "amount"}
+                        onChange={() => setDownPaymentMode("amount")}
+                      />
+                      $ Amount
+                    </label>
+                    <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] bg-white px-3 py-2 text-sm font-semibold text-[#172033]">
+                      <input
+                        type="radio"
+                        name="downPaymentMode"
+                        value="percent"
+                        checked={downPaymentMode === "percent"}
+                        onChange={() => setDownPaymentMode("percent")}
+                      />
+                      %
+                    </label>
+                  </div>
+                </div>
+                <label className={labelClass}>
+                  Down Payment Details
+                  <input
+                    name="down_payment_details"
+                    className={inputClass}
+                    placeholder={downPaymentMode === "amount" ? "e.g. 90,000" : "e.g. 20%"}
+                  />
                 </label>
               </div>
 
