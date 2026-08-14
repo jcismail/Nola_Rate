@@ -19,7 +19,7 @@ export default function SiteHeader() {
       <div className="flex flex-wrap items-center gap-3">
         <nav className="flex flex-wrap items-center gap-2 text-xs font-semibold text-white">
           <Link className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]" href="/">
-            Home
+            Homepage
           </Link>
           <Link
             className="rounded-full border border-[#ffd534]/50 bg-white/10 px-3 py-1.5 hover:bg-white hover:text-[#121e5b]"

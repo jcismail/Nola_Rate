@@ -2,7 +2,6 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/site/SiteHeader";
 import { applicationUrl } from "@/lib/application";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
@@ -10,7 +9,6 @@ import { siteConfig, toTelHref } from "@/lib/siteConfig";
 type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function RateQuotePage() {
-  const router = useRouter();
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
   const [transactionType, setTransactionType] = useState<"purchase" | "refinance" | "">("");
@@ -59,7 +57,8 @@ export default function RateQuotePage() {
 
       setState("success");
       form.reset();
-      router.push("/thank-you?type=rate_quote");
+      setTransactionType("");
+      setDownPaymentMode("amount");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");
