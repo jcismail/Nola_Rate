@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/site/SiteHeader";
 import { applicationUrl } from "@/lib/application";
@@ -74,60 +75,76 @@ export default function RateQuotePage() {
         <SiteHeader />
 
         <section className="grid gap-7 lg:grid-cols-[0.78fr_1.22fr]">
-          <aside className="rounded-3xl bg-[#121e5b] p-7 text-white shadow-xl shadow-[#121e5b]/20 md:p-8">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#ffd534]">
-              Request Rate Quote
-            </p>
-            <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-              A clearer quote starts with the right details.
-            </h1>
-            <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-white/70">
-              John Ismail · Mortgage Broker · NMLS #{siteConfig.nmls}
-            </p>
-            <p className="mt-4 text-lg leading-8 text-white/82">
-              Tell John whether you are buying or refinancing, where the property is,
-              and what kind of loan goal you have in mind. Email and phone are required
-              so he can follow up with complete next steps.
-            </p>
-            <div className="mt-7 space-y-3 rounded-2xl bg-white/10 p-5 text-sm leading-6">
-              <p>
-                <strong>New Orleans:</strong>{" "}
-                <a href={toTelHref(siteConfig.newOrleansPhone)} className="underline">
-                  {siteConfig.newOrleansPhone}
-                </a>
-              </p>
-              <p>
-                <strong>Call/Text:</strong>{" "}
-                <a href={toTelHref(siteConfig.contactPhone)} className="underline">
-                  {siteConfig.contactPhone}
-                </a>
-              </p>
-              <p>
-                <strong>Email:</strong>{" "}
-                <a href={`mailto:${siteConfig.contactEmail}`} className="underline">
-                  {siteConfig.contactEmail}
-                </a>
-              </p>
-              <p>
-                <strong>LinkedIn:</strong>{" "}
-                <a
-                  href={siteConfig.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline"
-                >
-                  Connect with John
-                </a>
+          <aside className="self-start overflow-hidden rounded-3xl bg-[#121e5b] text-white shadow-xl shadow-[#121e5b]/20">
+            <div className="relative min-h-[280px] bg-[#081244]">
+              <Image
+                src="/brand/john-headshot-red-tie.jpg"
+                alt="John Ismail, mortgage broker"
+                fill
+                preload
+                sizes="(min-width: 1024px) 430px, 100vw"
+                className="object-cover object-[56%_12%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#121e5b]/70 via-transparent to-transparent" />
+              <p className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-[#081244]/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] backdrop-blur-sm">
+                Guidance from John, start to finish
               </p>
             </div>
-            <a
-              href={applicationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-[#121e5b] hover:bg-[#fff5c7]"
-            >
-              Ready To Apply Now
-            </a>
+            <div className="p-7 md:p-8">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#ffd534]">
+                Request Rate Quote
+              </p>
+              <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
+                A clearer quote starts with the right details.
+              </h1>
+              <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-white/70">
+                John Ismail · Mortgage Broker · NMLS #{siteConfig.nmls}
+              </p>
+              <p className="mt-4 text-lg leading-8 text-white/82">
+                Tell John whether you are buying or refinancing, where the property is,
+                and what kind of loan goal you have in mind. Email and phone are required
+                so he can follow up with complete next steps.
+              </p>
+              <div className="mt-7 space-y-3 rounded-2xl bg-white/10 p-5 text-sm leading-6">
+                <p>
+                  <strong>New Orleans:</strong>{" "}
+                  <a href={toTelHref(siteConfig.newOrleansPhone)} className="underline">
+                    {siteConfig.newOrleansPhone}
+                  </a>
+                </p>
+                <p>
+                  <strong>Call/Text:</strong>{" "}
+                  <a href={toTelHref(siteConfig.contactPhone)} className="underline">
+                    {siteConfig.contactPhone}
+                  </a>
+                </p>
+                <p>
+                  <strong>Email:</strong>{" "}
+                  <a href={`mailto:${siteConfig.contactEmail}`} className="underline">
+                    {siteConfig.contactEmail}
+                  </a>
+                </p>
+                <p>
+                  <strong>LinkedIn:</strong>{" "}
+                  <a
+                    href={siteConfig.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    Connect with John
+                  </a>
+                </p>
+              </div>
+              <a
+                href={applicationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-[#121e5b] hover:bg-[#fff5c7]"
+              >
+                Ready To Apply Now
+              </a>
+            </div>
           </aside>
 
           <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] md:p-8">

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Image from "next/image";
 import SiteHeader from "@/components/site/SiteHeader";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
@@ -45,18 +46,35 @@ export default function ContactPage() {
       <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
       <SiteHeader />
       <section className="grid gap-6 md:grid-cols-2">
-        <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0]">
-          <h1 className="text-4xl font-bold text-[#172033]">Contact</h1>
-          <p className="mt-2 text-[#4c5265]">
-            Reach out for friendly, family-focused guidance on purchase, refinance, and next-step planning.
-          </p>
-          <div className="mt-5 space-y-2 text-[#172033]">
-            <p><strong>New Orleans:</strong> <a href={toTelHref(siteConfig.newOrleansPhone)} className="text-[#b27b00]">{siteConfig.newOrleansPhone}</a></p>
-            <p><strong>Call/Text:</strong> <a href={toTelHref(siteConfig.contactPhone)} className="text-[#b27b00]">{siteConfig.contactPhone}</a></p>
-            <p><strong>Email:</strong> <a href={`mailto:${siteConfig.contactEmail}`} className="text-[#b27b00]">{siteConfig.contactEmail}</a></p>
-            <p><strong>NMLS:</strong> #{siteConfig.nmls}</p>
-            <p><strong>LinkedIn:</strong> <a href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#b27b00]">Connect with John</a></p>
-            <p><strong>Service Area:</strong> Texas, Louisiana, and Mississippi</p>
+        <article className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#e5dcc0]">
+          <div className="relative min-h-[300px] bg-white">
+            <Image
+              src="/brand/john-headshot-blue-tie.jpg"
+              alt="John Ismail, mortgage broker"
+              fill
+              preload
+              sizes="(min-width: 768px) 550px, 100vw"
+              className="object-contain object-bottom"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#081244]/70 via-transparent to-transparent" />
+            <p className="absolute bottom-5 left-5 text-xs font-bold uppercase tracking-[0.18em] text-white">
+              A real person. A clear next step.
+            </p>
+          </div>
+          <div className="p-6">
+            <h1 className="text-4xl font-bold text-[#172033]">Contact John</h1>
+            <p className="mt-2 text-[#4c5265]">
+              Reach out for friendly, family-focused guidance on purchase, refinance,
+              and next-step planning.
+            </p>
+            <div className="mt-5 space-y-2 text-[#172033]">
+              <p><strong>New Orleans:</strong> <a href={toTelHref(siteConfig.newOrleansPhone)} className="text-[#b27b00]">{siteConfig.newOrleansPhone}</a></p>
+              <p><strong>Call/Text:</strong> <a href={toTelHref(siteConfig.contactPhone)} className="text-[#b27b00]">{siteConfig.contactPhone}</a></p>
+              <p><strong>Email:</strong> <a href={`mailto:${siteConfig.contactEmail}`} className="text-[#b27b00]">{siteConfig.contactEmail}</a></p>
+              <p><strong>NMLS:</strong> #{siteConfig.nmls}</p>
+              <p><strong>LinkedIn:</strong> <a href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#b27b00]">Connect with John</a></p>
+              <p><strong>Service Area:</strong> Texas, Louisiana, and Mississippi</p>
+            </div>
           </div>
         </article>
 

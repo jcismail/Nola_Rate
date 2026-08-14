@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import SiteHeader from "@/components/site/SiteHeader";
 
@@ -39,12 +40,34 @@ export default function RealtorPartnerPage() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_15%_20%,#ffffff_0%,#f1e7ba_37%,#f7f6ef_80%)]">
     <main className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-14">
       <SiteHeader />
-      <section className="rounded-2xl border border-[#ffd534]/40 bg-[linear-gradient(130deg,#081244_0%,#121e5b_70%,#2b3672_100%)] p-8 text-white shadow-xl shadow-[#121e5b]/20">
-        <h1 className="text-4xl font-bold">Realtor Partner Program</h1>
-        <p className="mt-3 max-w-3xl text-lg text-white/88">
-          Helping Louisiana and Mississippi realtors serve families better with fast
-          initial qualification, clear communication, and loan options that fit real-life goals.
-        </p>
+      <section className="overflow-hidden rounded-3xl border border-[#ffd534]/40 bg-[#121e5b] text-white shadow-xl shadow-[#121e5b]/20 lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="flex flex-col justify-center bg-[linear-gradient(130deg,#081244_0%,#121e5b_70%,#2b3672_100%)] p-8 md:p-10 lg:p-12">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#ffd534]">
+            Better lending partnerships
+          </p>
+          <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
+            Realtor Partner Program
+          </h1>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-white/88">
+            Helping Louisiana and Mississippi realtors serve families better with fast
+            initial qualification, clear communication, and loan options that fit
+            real-life goals.
+          </p>
+        </div>
+        <div className="relative min-h-[310px] lg:min-h-[430px]">
+          <Image
+            src="/brand/new-orleans/garden-district-skyline.jpg"
+            alt="New Orleans homes and neighborhoods with the downtown skyline"
+            fill
+            preload
+            sizes="(min-width: 1024px) 620px, 100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#081244]/45 via-transparent to-transparent" />
+          <p className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-[#081244]/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] backdrop-blur-sm">
+            Local market. Responsive lending partner.
+          </p>
+        </div>
       </section>
 
       <section className="mt-7 grid gap-6 md:grid-cols-2">

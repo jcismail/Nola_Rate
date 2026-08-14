@@ -12,7 +12,6 @@ export default function SiteHeader() {
           alt="Nola Rate Mortgage Advisory"
           width={455}
           height={130}
-          priority
           className="h-auto w-[230px] sm:w-[300px]"
         />
       </Link>
