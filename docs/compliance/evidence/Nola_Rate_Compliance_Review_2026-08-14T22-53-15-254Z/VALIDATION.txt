@@ -1,0 +1,18 @@
+NOLA RATE COMPLIANCE REVIEW VALIDATION
+Generated: 2026-08-14T22:53:15.254Z
+Branch: preview/nola-rate-update
+Base commit: e1449b918c4f257fb9351d4e52ca4ec1732f448f
+Local development changes included: no
+Hosted page count: 4
+External navigation destination count: 2
+Production build ID: TwMQOpcoHHWPOFtt3wmPP
+
+=== npm run lint (PASSED) ===
+> nola-rate-app@0.1.0 lint
+> eslint
+
+=== npm run compliance:check (PASSED) ===
+> nola-rate-app@0.1.0 compliance:check
+> node scripts/compliance-check.mjs
+
+Nola Rate advertising compliance check passed.

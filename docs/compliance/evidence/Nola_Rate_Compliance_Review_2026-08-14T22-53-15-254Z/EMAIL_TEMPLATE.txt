@@ -1,0 +1,14 @@
+Subject: Nola Rate website — compliance review request
+
+Hello,
+
+Attached is the Nola Rate website compliance review packet prepared from the current local development build.
+
+Review environment: Local development review; not deployed
+
+The packet includes all four hosted Nola Rate pages, required footer disclosures, individual page PDFs, and desktop/mobile screenshots. It also identifies the LinkedIn and Apply Now third-party destinations. This material is for review only and has not been promoted to production.
+
+Please provide written approval or requested revisions before public launch.
+
+Thank you,
+John Ismail
