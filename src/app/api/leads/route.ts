@@ -1,6 +1,7 @@
 import { mkdir, appendFile } from "node:fs/promises";
 import path from "node:path";
 import { sendLeadToAttio } from "@/lib/attio";
+import { buildLeadEmail } from "@/lib/leadEmail";
 import { getSupabaseAdminClient, isSupabaseLeadsEnabled } from "@/lib/supabaseAdmin";
 
 type LeadPayload = {
@@ -43,9 +44,7 @@ async function sendLeadEmail(entry: Record<string, unknown>) {
   const from = process.env.LEAD_FROM_EMAIL ?? "leads@updates.nolarate.com";
 
   if (!apiKey || !to) return;
-
-  const lines = Object.entries(entry).map(([k, v]) => `${k}: ${String(v ?? "")}`);
-  const text = lines.join("\n");
+  const email = buildLeadEmail(entry);
 
   const resendResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -56,8 +55,10 @@ async function sendLeadEmail(entry: Record<string, unknown>) {
     body: JSON.stringify({
       from,
       to: [to],
-      subject: `New Lead: ${String(entry.leadType ?? "unknown")}`,
-      text,
+      subject: email.subject,
+      text: email.text,
+      html: email.html,
+      reply_to: email.replyTo,
     }),
   });
 
