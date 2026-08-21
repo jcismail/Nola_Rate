@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SiteHeader from "@/components/site/SiteHeader";
+import ServiceAreaMap from "@/components/site/ServiceAreaMap";
 import { applicationUrl } from "@/lib/application";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
@@ -43,16 +44,25 @@ export default function Home() {
                   className="h-6 w-auto object-contain"
                 />
               </div>
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-[#ffd534]">
-                Based in New Orleans. Serving Texas, Louisiana, and Mississippi.
-              </p>
               <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">
                 Mortgage guidance designed around your next move.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/82">
-                John helps buyers, homeowners, and investors compare loan options with
-                clarity, confidence, and a more personal path forward.
+                John and his team help borrowers confidently secure financing for primary
+                residences, second and vacation homes, and investment properties as they
+                build their portfolios.
               </p>
+              <div className="mt-5 grid gap-2 rounded-2xl border border-white/25 bg-white/10 p-4 text-base font-bold sm:grid-cols-2 sm:text-lg">
+                <a href={toTelHref(siteConfig.newOrleansPhone)} className="hover:text-[#ffd534]">
+                  <span className="mr-2 text-[#ffd534]">Phone</span>
+                  {siteConfig.newOrleansPhone}
+                </a>
+                <a href={`mailto:${siteConfig.contactEmail}`} className="break-all hover:text-[#ffd534]">
+                  <span className="mr-2 text-[#ffd534]">Email</span>
+                  {siteConfig.contactEmail}
+                </a>
+              </div>
+              <ServiceAreaMap />
               <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-white/70">
                 John Ismail · Mortgage Broker · NMLS #{siteConfig.nmls}
               </p>
@@ -309,6 +319,7 @@ export default function Home() {
                 src="/brand/new-orleans/classic-shotgun-home.jpg"
                 alt="A classic New Orleans shotgun home with an ornate front porch"
                 fill
+                quality={90}
                 sizes="(min-width: 1024px) 340px, 50vw"
                 className="object-cover object-center"
               />
@@ -318,6 +329,7 @@ export default function Home() {
                 src="/brand/new-orleans/colorful-new-orleans-home.jpg"
                 alt="Colorful New Orleans homes with traditional shutters and porches"
                 fill
+                quality={90}
                 sizes="(min-width: 1024px) 340px, 50vw"
                 className="object-cover object-[62%_center]"
               />

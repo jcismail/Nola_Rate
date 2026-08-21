@@ -85,6 +85,10 @@ function toNullableText(value: unknown) {
   return text ? text : null;
 }
 
+function hasText(value: unknown) {
+  return String(value ?? "").trim() !== "";
+}
+
 function toNullableNumber(value: unknown) {
   if (value === null || value === undefined) return null;
   const digits = String(value).replace(/[^0-9.]/g, "");
@@ -113,7 +117,9 @@ async function persistLeadToSupabase(entry: Record<string, unknown>) {
     loan_goal: toNullableText(entry.loan_goal ?? entry.loanGoal),
     credit_range: toNullableText(entry.credit_range ?? entry.creditRange),
     income_range: toNullableText(entry.income_range ?? entry.incomeRange),
-    down_payment_range: toNullableText(entry.down_payment_range ?? entry.downPaymentRange),
+    down_payment_range: toNullableText(
+      entry.down_payment_range ?? entry.downPaymentRange ?? entry.down_payment_details
+    ),
     target_home_price: toNullableNumber(entry.target_home_price ?? entry.purchasePrice),
     timeline: toNullableText(entry.timeline),
     consent_to_contact: entry.consentToContact === "yes",
@@ -182,6 +188,28 @@ export async function POST(req: Request) {
         { ok: false, error: "Phone number is required for this request" },
         { status: 400 }
       );
+    }
+
+    if (payload.leadType === "rate_quote") {
+      const transactionType = String(payload.transactionType ?? "");
+      const missingCommonDetails = ![
+        payload.target_home_price,
+        payload.loan_term,
+        payload.credit_range,
+        payload.propertyUse,
+      ].every(hasText);
+      const missingTransactionDetails = transactionType === "purchase"
+        ? !hasText(payload.down_payment_details)
+        : transactionType === "refinance"
+          ? !hasText(payload.existing_loan_balance)
+          : true;
+
+      if (missingCommonDetails || missingTransactionDetails) {
+        return Response.json(
+          { ok: false, error: "Complete all required loan details" },
+          { status: 400 }
+        );
+      }
     }
 
     const entry = {

@@ -33,8 +33,9 @@ const RATE_QUOTE_SECTIONS: LeadEmailSection[] = [
       { key: "city", label: "Property city" },
       { key: "timeline", label: "Timeline" },
       { key: "target_home_price", label: "Purchase price / property value" },
-      { key: "down_payment_range", label: "Down payment / current equity" },
       { key: "existing_loan_balance", label: "Existing loan balance(s)" },
+      { key: "loan_term", label: "Requested loan term" },
+      { key: "loan_term_other", label: "Other loan term" },
       { key: "credit_range", label: "Credit range" },
       { key: "propertyUse", label: "Property use" },
       { key: "downPaymentMode", label: "Down payment type" },
@@ -50,7 +51,6 @@ const RATE_QUOTE_SECTIONS: LeadEmailSection[] = [
     title: "Permissions",
     fields: [
       { key: "consentToContact", label: "Consent to contact" },
-      { key: "marketingOptOut", label: "Marketing opt-out" },
     ],
   },
   {

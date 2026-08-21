@@ -13,6 +13,7 @@ export default function RateQuotePage() {
   const [error, setError] = useState("");
   const [transactionType, setTransactionType] = useState<"purchase" | "refinance" | "">("");
   const [downPaymentMode, setDownPaymentMode] = useState<"amount" | "percent">("amount");
+  const [loanTerm, setLoanTerm] = useState("");
 
   const utm = useMemo(() => {
     if (typeof window === "undefined") return {};
@@ -59,6 +60,7 @@ export default function RateQuotePage() {
       form.reset();
       setTransactionType("");
       setDownPaymentMode("amount");
+      setLoanTerm("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");
@@ -174,7 +176,10 @@ export default function RateQuotePage() {
                       name="transactionType"
                       value="purchase"
                       checked={transactionType === "purchase"}
-                      onChange={() => setTransactionType("purchase")}
+                      onChange={() => {
+                        setTransactionType("purchase");
+                        setLoanTerm("");
+                      }}
                       required
                     />
                     Purchase
@@ -185,7 +190,10 @@ export default function RateQuotePage() {
                       name="transactionType"
                       value="refinance"
                       checked={transactionType === "refinance"}
-                      onChange={() => setTransactionType("refinance")}
+                      onChange={() => {
+                        setTransactionType("refinance");
+                        setLoanTerm("");
+                      }}
                       required
                     />
                     Refinance
@@ -222,9 +230,9 @@ export default function RateQuotePage() {
                   Property State *
                   <select name="state" required className={inputClass} defaultValue="">
                     <option value="">Choose state</option>
-                    <option>Texas</option>
                     <option>Louisiana</option>
                     <option>Mississippi</option>
+                    <option>Texas</option>
                     <option>Other</option>
                   </select>
                 </label>
@@ -244,31 +252,108 @@ export default function RateQuotePage() {
                 </label>
               </div>
 
+              {transactionType && (
+                <fieldset className="grid gap-4 rounded-2xl border border-[#e2d6b5] bg-[#fffdf3] p-4 md:grid-cols-2">
+                  <legend className="px-1 text-sm font-bold text-[#121e5b]">
+                    {transactionType === "purchase" ? "Purchase details" : "Refinance details"}
+                  </legend>
+                  <label className={labelClass}>
+                    {transactionType === "purchase" ? "Purchase Price *" : "Estimated Property Value *"}
+                    <input
+                      name="target_home_price"
+                      inputMode="decimal"
+                      required
+                      className={inputClass}
+                      placeholder={transactionType === "purchase" ? "e.g. 450,000" : "e.g. 550,000"}
+                    />
+                  </label>
+
+                  {transactionType === "purchase" ? (
+                    <>
+                      <div className="rounded-2xl border border-[#e2d6b5] bg-white p-4">
+                        <p className="text-sm font-bold text-[#121e5b]">Down Payment Type *</p>
+                        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                          <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] px-3 py-2 text-sm font-semibold text-[#172033]">
+                            <input
+                              type="radio"
+                              name="downPaymentMode"
+                              value="amount"
+                              checked={downPaymentMode === "amount"}
+                              onChange={() => setDownPaymentMode("amount")}
+                            />
+                            $ Amount
+                          </label>
+                          <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] px-3 py-2 text-sm font-semibold text-[#172033]">
+                            <input
+                              type="radio"
+                              name="downPaymentMode"
+                              value="percent"
+                              checked={downPaymentMode === "percent"}
+                              onChange={() => setDownPaymentMode("percent")}
+                            />
+                            Percentage
+                          </label>
+                        </div>
+                      </div>
+                      <label className={labelClass}>
+                        {downPaymentMode === "amount" ? "Down Payment Amount *" : "Down Payment Percentage *"}
+                        <input
+                          name="down_payment_details"
+                          inputMode="decimal"
+                          required
+                          className={inputClass}
+                          placeholder={downPaymentMode === "amount" ? "e.g. 90,000" : "e.g. 20"}
+                        />
+                      </label>
+                    </>
+                  ) : (
+                    <label className={labelClass}>
+                      Existing Loan Balance *
+                      <input
+                        name="existing_loan_balance"
+                        inputMode="decimal"
+                        required
+                        className={inputClass}
+                        placeholder="e.g. 275,000"
+                      />
+                    </label>
+                  )}
+
+                  <label className={labelClass}>
+                    Loan Term *
+                    <select
+                      name="loan_term"
+                      required
+                      className={inputClass}
+                      value={loanTerm}
+                      onChange={(event) => setLoanTerm(event.target.value)}
+                    >
+                      <option value="">Choose term</option>
+                      {transactionType === "refinance" && <option value="10 years">10 years</option>}
+                      <option value="15 years">15 years</option>
+                      {transactionType === "refinance" && <option value="20 years">20 years</option>}
+                      <option value="30 years">30 years</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </label>
+                  {loanTerm === "Other" && (
+                    <label className={labelClass}>
+                      Other Loan Term *
+                      <input
+                        name="loan_term_other"
+                        required
+                        className={inputClass}
+                        placeholder="Tell John the term you want"
+                      />
+                    </label>
+                  )}
+                </fieldset>
+              )}
+
               <div className="grid gap-4 md:grid-cols-2">
                 <label className={labelClass}>
-                  {transactionType === "purchase" ? "Estimated Purchase Price" : "Estimated Property Value"}
-                  <input
-                    name="target_home_price"
-                    inputMode="decimal"
-                    className={inputClass}
-                    placeholder={transactionType === "purchase" ? "e.g. 450,000" : "e.g. 550,000"}
-                  />
-                </label>
-                <label className={labelClass}>
-                  {transactionType === "purchase" ? "Down Payment" : "Current Equity / Loan Balance"}
-                  <input
-                    name="down_payment_range"
-                    className={inputClass}
-                    placeholder={transactionType === "purchase" ? "e.g. 20% or 90,000" : "e.g. 40% or 250,000"}
-                  />
-                </label>
-                <label className={labelClass}>
-                  Existing Loan Balance(s)
-                  <input name="existing_loan_balance" className={inputClass} placeholder="e.g. 275,000" />
-                </label>
-                <label className={labelClass}>
-                  Credit Range
-                  <select name="credit_range" className={inputClass} defaultValue="">
+                  Credit Range *
+                  <select name="credit_range" required className={inputClass} defaultValue="">
                     <option value="">Choose range</option>
                     <option>760+</option>
                     <option>700-759</option>
@@ -279,8 +364,8 @@ export default function RateQuotePage() {
                   </select>
                 </label>
                 <label className={labelClass}>
-                  Property Use
-                  <select name="propertyUse" className={inputClass} defaultValue="">
+                  Property Use *
+                  <select name="propertyUse" required className={inputClass} defaultValue="">
                     <option value="">Choose use</option>
                     <option>Primary Residence</option>
                     <option>Second Home</option>
@@ -298,42 +383,6 @@ export default function RateQuotePage() {
                     <option>Other</option>
                   </select>
                 </div>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border border-[#e2d6b5] bg-[#fffdf3] p-4">
-                  <p className="text-sm font-bold text-[#121e5b]">Down payment type</p>
-                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                    <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] bg-white px-3 py-2 text-sm font-semibold text-[#172033]">
-                      <input
-                        type="radio"
-                        name="downPaymentMode"
-                        value="amount"
-                        checked={downPaymentMode === "amount"}
-                        onChange={() => setDownPaymentMode("amount")}
-                      />
-                      $ Amount
-                    </label>
-                    <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] bg-white px-3 py-2 text-sm font-semibold text-[#172033]">
-                      <input
-                        type="radio"
-                        name="downPaymentMode"
-                        value="percent"
-                        checked={downPaymentMode === "percent"}
-                        onChange={() => setDownPaymentMode("percent")}
-                      />
-                      %
-                    </label>
-                  </div>
-                </div>
-                <label className={labelClass}>
-                  Down Payment Details
-                  <input
-                    name="down_payment_details"
-                    className={inputClass}
-                    placeholder={downPaymentMode === "amount" ? "e.g. 90,000" : "e.g. 20%"}
-                  />
-                </label>
               </div>
 
               <label className={labelClass}>
@@ -355,21 +404,8 @@ export default function RateQuotePage() {
                   className="mt-1"
                 />
                 <span>
-                  I agree that John may contact me by phone, text, or email about my
-                  mortgage request. Message and data rates may apply.
-                </span>
-              </label>
-
-              <label className="flex items-start gap-3 rounded-2xl border border-[#e2d6b5] bg-white p-4 text-sm text-[#4c5265]">
-                <input
-                  type="checkbox"
-                  name="marketingOptOut"
-                  value="yes"
-                  className="mt-1"
-                />
-                <span>
-                  Opt me out of marketing emails and marketing phone calls. Only contact
-                  me about this mortgage request.
+                  John and his team may contact me by phone, text, or email about my
+                  mortgage request.
                 </span>
               </label>
 
