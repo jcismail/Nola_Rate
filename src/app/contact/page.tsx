@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Image from "next/image";
 import SiteHeader from "@/components/site/SiteHeader";
+import { formatPhoneInput } from "@/lib/contactValidation";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -10,6 +11,7 @@ type FormState = "idle" | "submitting" | "success" | "error";
 export default function ContactPage() {
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
+  const [phone, setPhone] = useState("");
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,6 +37,7 @@ export default function ContactPage() {
       }
       setState("success");
       form.reset();
+      setPhone("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");
@@ -87,8 +90,22 @@ export default function ContactPage() {
             <label htmlFor="contact-phone" className="sr-only">Phone</label>
             <label htmlFor="contact-message" className="sr-only">Message</label>
             <input id="contact-name" name="name" required placeholder="Full Name" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
-            <input id="contact-email" name="email" required type="email" placeholder="Email" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
-            <input id="contact-phone" name="phone" required placeholder="Phone" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
+            <input id="contact-email" name="email" required type="email" autoComplete="email" placeholder="Email" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
+            <input
+              id="contact-phone"
+              name="phone"
+              required
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              title="Enter a 10-digit phone number"
+              maxLength={12}
+              value={phone}
+              onChange={(event) => setPhone(formatPhoneInput(event.target.value))}
+              placeholder="XXX-XXX-XXXX"
+              className="rounded-lg border border-[#e2d6b5] px-3 py-2.5"
+            />
             <textarea id="contact-message" name="message" rows={4} required placeholder="How can we help?" className="rounded-lg border border-[#e2d6b5] px-3 py-2.5" />
             <label className="flex items-start gap-3 rounded-lg border border-[#e2d6b5] bg-[#fffdf3] p-3 text-sm text-[#4c5265]">
               <input

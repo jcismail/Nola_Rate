@@ -40,18 +40,25 @@ test("contact page does not include marketing opt-out checkbox", async ({ page }
 
 test("homepage puts contact details and service areas near the top", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: /Phone\s*504\.408\.9868/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Phone \/ Text\s*504\.408\.9868/ })).toBeVisible();
   await expect(page.getByLabel("Service areas: Louisiana, Mississippi, and Texas")).toBeVisible();
   await expect(page.getByText(/John and his team help borrowers confidently secure financing/)).toBeVisible();
+  await expect(page.getByRole("img", { name: "CMA Certified Mortgage Advisor" })).toHaveCount(2);
 });
 
 test("quote request shows the correct required purchase and refinance fields", async ({ page }) => {
   await page.goto("/rate-quote");
   await page.getByRole("radio", { name: "Purchase" }).check();
   await expect(page.getByLabel("Purchase Price *")).toBeVisible();
+  await expect(page.getByLabel("Down Payment Percentage *")).toBeVisible();
   await expect(page.getByLabel("Down Payment Amount *")).toBeVisible();
   await expect(page.getByLabel("Loan Term *")).toBeVisible();
   await expect(page.getByLabel("Existing Loan Balance *")).toHaveCount(0);
+  await page.getByLabel("Purchase Price *").fill("600000");
+  await page.getByLabel("Down Payment Percentage *").fill("20");
+  await expect(page.getByLabel("Down Payment Amount *")).toHaveValue("120000");
+  await expect(page.getByLabel("Loan Term *").locator("option", { hasText: "15 Years" })).toHaveText("15 Years");
+  await expect(page.locator('select[name="referral_source"] option', { hasText: "Repeat Customer" })).toHaveText("Repeat Customer");
 
   await page.getByRole("radio", { name: "Refinance" }).check();
   await expect(page.getByLabel("Estimated Property Value *")).toBeVisible();
@@ -73,6 +80,29 @@ test("calculator supports purchase synchronization and refinance mode", async ({
   await expect(page.getByLabel("Loan Term")).toBeVisible();
 });
 
+test("homepage moves About John above final contact and serves full-resolution home photos", async ({ page }) => {
+  await page.goto("/");
+  const aboutPrecedesContact = await page.locator("#about-john").evaluate((about) => {
+    const contact = document.querySelector("#final-contact");
+    return Boolean(contact && (about.compareDocumentPosition(contact) & Node.DOCUMENT_POSITION_FOLLOWING));
+  });
+  expect(aboutPrecedesContact).toBeTruthy();
+  await expect(page.getByRole("img", { name: /classic New Orleans shotgun home/ })).toHaveAttribute("src", "/brand/new-orleans/classic-shotgun-home.jpg");
+  await expect(page.getByRole("img", { name: /Colorful New Orleans homes/ })).toHaveAttribute("src", "/brand/new-orleans/colorful-new-orleans-home.jpg");
+});
+
+test("lead forms format ten-digit phone numbers and enforce email validity", async ({ page }) => {
+  await page.goto("/contact");
+  await page.getByLabel("Phone", { exact: true }).fill("5044089868");
+  await expect(page.getByLabel("Phone", { exact: true })).toHaveValue("504-408-9868");
+  await page.getByLabel("Email", { exact: true }).fill("not-an-email");
+  expect(await page.getByLabel("Email", { exact: true }).evaluate((input: HTMLInputElement) => input.checkValidity())).toBeFalsy();
+
+  await page.goto("/rate-quote");
+  await page.getByLabel("Phone *").fill("4692262429");
+  await expect(page.getByLabel("Phone *")).toHaveValue("469-226-2429");
+});
+
 test("quote API rejects requests missing required loan details", async ({ request }) => {
   const response = await request.post("/api/leads", {
     data: {
@@ -88,5 +118,19 @@ test("quote API rejects requests missing required loan details", async ({ reques
   await expect(response.json()).resolves.toMatchObject({
     error: "Complete all required loan details",
   });
+});
+
+test("lead API rejects malformed phone numbers and email addresses", async ({ request }) => {
+  const badPhone = await request.post("/api/leads", {
+    data: { leadType: "contact_request", name: "Validation Test", phone: "555555", email: "validation@example.com" },
+  });
+  expect(badPhone.status()).toBe(400);
+  await expect(badPhone.json()).resolves.toMatchObject({ error: "Enter a valid 10-digit phone number" });
+
+  const badEmail = await request.post("/api/leads", {
+    data: { leadType: "contact_request", name: "Validation Test", phone: "504-555-0100", email: "not-an-email" },
+  });
+  expect(badEmail.status()).toBe(400);
+  await expect(badEmail.json()).resolves.toMatchObject({ error: "Enter a valid email address" });
 });
 

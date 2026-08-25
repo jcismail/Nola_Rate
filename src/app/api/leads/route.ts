@@ -1,5 +1,6 @@
 import { mkdir, appendFile } from "node:fs/promises";
 import path from "node:path";
+import { isValidEmail, isValidPhone } from "@/lib/contactValidation";
 import { sendLeadToAttio } from "@/lib/attio";
 import { buildLeadEmail } from "@/lib/leadEmail";
 import { getSupabaseAdminClient, isSupabaseLeadsEnabled } from "@/lib/supabaseAdmin";
@@ -118,7 +119,7 @@ async function persistLeadToSupabase(entry: Record<string, unknown>) {
     credit_range: toNullableText(entry.credit_range ?? entry.creditRange),
     income_range: toNullableText(entry.income_range ?? entry.incomeRange),
     down_payment_range: toNullableText(
-      entry.down_payment_range ?? entry.downPaymentRange ?? entry.down_payment_details
+      entry.down_payment_range ?? entry.downPaymentRange ?? entry.down_payment_amount
     ),
     target_home_price: toNullableNumber(entry.target_home_price ?? entry.purchasePrice),
     timeline: toNullableText(entry.timeline),
@@ -180,12 +181,19 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!isValidEmail(payload.email)) {
+      return Response.json(
+        { ok: false, error: "Enter a valid email address" },
+        { status: 400 }
+      );
+    }
+
     if (
       (payload.leadType === "rate_quote" || payload.leadType === "contact_request") &&
-      !payload.phone
+      !isValidPhone(payload.phone)
     ) {
       return Response.json(
-        { ok: false, error: "Phone number is required for this request" },
+        { ok: false, error: "Enter a valid 10-digit phone number" },
         { status: 400 }
       );
     }
@@ -199,7 +207,7 @@ export async function POST(req: Request) {
         payload.propertyUse,
       ].every(hasText);
       const missingTransactionDetails = transactionType === "purchase"
-        ? !hasText(payload.down_payment_details)
+        ? !hasText(payload.down_payment_amount) || !hasText(payload.down_payment_percent)
         : transactionType === "refinance"
           ? !hasText(payload.existing_loan_balance)
           : true;
