@@ -20,11 +20,11 @@ export default function MortgageCalculatorPage() {
               Mortgage Calculator
             </p>
             <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-              Estimate your monthly mortgage payment.
+              Estimate a purchase or refinance payment.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-white/88">
-              Run a quick payment estimate, then request a rate quote or start the
-              application when you are ready.
+              Compare a purchase down payment or model a refinance using your current
+              balance, preferred term, and estimated rate.
             </p>
           </div>
           <div className="relative min-h-[300px] lg:min-h-[460px]">
