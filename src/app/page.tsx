@@ -8,14 +8,14 @@ import { applicationUrl } from "@/lib/application";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
 const loanHighlights = [
-  { name: "Conventional", description: "Flexible financing for primary homes, second homes, and common purchase or refinance scenarios." },
+  { name: "Conventional", description: "Best suited for borrowers with established credit, income and verified assets for purchase and refinance transactions." },
   { name: "FHA", description: "Government-backed loans that can help buyers with lower down payments and more flexible credit pathways." },
   { name: "VA", description: "Strong purchase power and no PMI for eligible service members, veterans, and surviving spouses." },
   { name: "USDA", description: "Possible zero-down or low-down financing for qualifying rural and suburban buyers." },
   { name: "Jumbo", description: "Higher-loan solutions for homes above standard conforming loan limits." },
-  { name: "Investor", description: "Rental and investment property financing built around cash flow, reserves, and portfolio goals." },
   { name: "Non-QM", description: "Alternative documentation options for self-employed borrowers and non-traditional income profiles." },
   { name: "Down Payment Assistance", description: "Programs that may reduce the cash required upfront for qualified home buyers." },
+  { name: "Renovation and Construction", description: "Financing options designed for building a new home or improving an existing property." },
 ];
 
 function AboutJohnSection() {
@@ -134,40 +134,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-4 md:grid-cols-3">
-          <a
-            href={applicationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] transition hover:-translate-y-1 hover:ring-[#121e5b]"
-          >
-            <h2 className="text-2xl font-bold text-[#121e5b]">Apply Now</h2>
-            <p className="mt-3 leading-7 text-[#4c5265]">
-              Best when you are ready to share your goals and move toward a full review.
-            </p>
-          </a>
-
-          <Link
-            href="/rate-quote"
-            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] transition hover:-translate-y-1 hover:ring-[#121e5b]"
-          >
-            <h2 className="text-2xl font-bold text-[#121e5b]">Request Rate Quote</h2>
-            <p className="mt-3 leading-7 text-[#4c5265]">
-              Share purchase or refinance details, timeline, and property goals to start a more informed conversation.
-            </p>
-          </Link>
-
-          <Link
-            href="/contact"
-            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] transition hover:-translate-y-1 hover:ring-[#121e5b]"
-          >
-            <h2 className="text-2xl font-bold text-[#121e5b]">Ask A Question</h2>
-            <p className="mt-3 leading-7 text-[#4c5265]">
-              Use this for quick questions before you are ready to apply or request a detailed quote.
-            </p>
-          </Link>
-        </section>
-
         <section className="mt-8 overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-[#e5dcc0] lg:grid lg:grid-cols-[1.12fr_0.88fr]">
           <div className="relative min-h-[340px] lg:min-h-[470px]">
             <Image
@@ -253,7 +219,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] md:p-8">
+        <section id="loan-options" className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] md:p-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-[#b27b00]">
@@ -262,10 +228,6 @@ export default function Home() {
               <h2 className="mt-2 text-3xl font-bold text-[#121e5b]">
                 Plenty of options, one simple starting point.
               </h2>
-              <p className="mt-2 max-w-3xl leading-7 text-[#4c5265]">
-                The detailed quote form gives John enough context to identify the right
-                path before the conversation starts.
-              </p>
             </div>
             <Link
               href="/rate-quote"
@@ -279,10 +241,11 @@ export default function Home() {
             {loanHighlights.map((item) => (
               <div
                 key={item.name}
-                className="rounded-2xl border border-[#e2d6b5] bg-[#fffdf3] p-4 shadow-sm"
+                className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-[#e2d6b5] bg-[#fffdf3] p-5 text-center shadow-sm"
               >
-                <h3 className="text-lg font-bold text-[#121e5b]">{item.name}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#4c5265]">{item.description}</p>
+                <h3 className="text-xl font-black leading-tight text-[#121e5b]">{item.name}</h3>
+                <div className="mt-3 h-1 w-12 rounded-full bg-[#d7b249]" aria-hidden="true" />
+                <p className="mt-3 text-sm leading-6 text-[#4c5265]">{item.description}</p>
               </div>
             ))}
           </div>

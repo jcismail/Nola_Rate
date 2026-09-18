@@ -38,7 +38,6 @@ const RATE_QUOTE_SECTIONS: LeadEmailSection[] = [
       { key: "loan_term_other", label: "Other loan term" },
       { key: "credit_range", label: "Credit range" },
       { key: "propertyUse", label: "Property use" },
-      { key: "downPaymentMode", label: "Down payment type" },
       { key: "down_payment_percent", label: "Down payment percentage" },
       { key: "down_payment_amount", label: "Down payment amount" },
       { key: "referral_source", label: "Referral source" },
@@ -155,7 +154,7 @@ function formatValue(key: string, value: unknown) {
   }
   if (key === "consentToContact") return text === "yes" ? "Yes" : titleCase(text);
   if (key === "marketingOptOut") return text === "yes" ? "Yes — request-specific contact only" : titleCase(text);
-  if (["transactionType", "loan_goal", "downPaymentMode"].includes(key)) {
+  if (["transactionType", "loan_goal"].includes(key)) {
     return titleCase(text);
   }
 
