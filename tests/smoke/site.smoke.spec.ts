@@ -29,8 +29,16 @@ test("homepage CTA and quote flow reflect John’s requested structure", async (
 
 test("homepage includes loan option descriptors", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Conventional")).toBeVisible();
-  await expect(page.getByText("Flexible financing for primary homes, second homes, and common purchase or refinance scenarios.")).toBeVisible();
+  const loanOptions = page.locator("#loan-options");
+  await expect(loanOptions.getByText("Conventional")).toBeVisible();
+  await expect(loanOptions.getByText("Best suited for borrowers with established credit, income and verified assets for purchase and refinance transactions.")).toBeVisible();
+  await expect(loanOptions.getByText("Investor", { exact: true })).toHaveCount(0);
+  await expect(loanOptions.getByText("Renovation and Construction")).toBeVisible();
+  await expect(loanOptions.locator("h3").first().locator("..")).toHaveClass(/text-center/);
+  await expect(page.getByText("The detailed quote form gives John enough context")).toHaveCount(0);
+  await expect(page.getByText("Best when you are ready to share your goals")).toHaveCount(0);
+  await expect(page.getByText("Share purchase or refinance details, timeline")).toHaveCount(0);
+  await expect(page.getByText("Use this for quick questions before you are ready")).toHaveCount(0);
 });
 
 test("contact page does not include marketing opt-out checkbox", async ({ page }) => {
@@ -54,15 +62,21 @@ test("quote request shows the correct required purchase and refinance fields", a
   await expect(page.getByLabel("Down Payment Amount *")).toBeVisible();
   await expect(page.getByLabel("Loan Term *")).toBeVisible();
   await expect(page.getByLabel("Existing Loan Balance *")).toHaveCount(0);
-  await page.getByLabel("Purchase Price *").fill("600000");
+  await expect(page.getByText("Down Payment Type *")).toHaveCount(0);
+  await page.getByLabel("Purchase Price *").fill("1450325");
+  await expect(page.getByLabel("Purchase Price *")).toHaveValue("$1,450,325");
   await page.getByLabel("Down Payment Percentage *").fill("20");
-  await expect(page.getByLabel("Down Payment Amount *")).toHaveValue("120000");
+  await expect(page.getByLabel("Down Payment Amount *")).toHaveValue("$290,065");
   await expect(page.getByLabel("Loan Term *").locator("option", { hasText: "15 Years" })).toHaveText("15 Years");
   await expect(page.locator('select[name="referral_source"] option', { hasText: "Repeat Customer" })).toHaveText("Repeat Customer");
 
   await page.getByRole("radio", { name: "Refinance" }).check();
   await expect(page.getByLabel("Estimated Property Value *")).toBeVisible();
   await expect(page.getByLabel("Existing Loan Balance *")).toBeVisible();
+  await page.getByLabel("Estimated Property Value *").fill("875000");
+  await expect(page.getByLabel("Estimated Property Value *")).toHaveValue("$875,000");
+  await page.getByLabel("Existing Loan Balance *").fill("450000");
+  await expect(page.getByLabel("Existing Loan Balance *")).toHaveValue("$450,000");
   await expect(page.getByLabel("Down Payment Amount *")).toHaveCount(0);
   await expect(page.getByText("Opt me out of marketing")).toHaveCount(0);
 });
