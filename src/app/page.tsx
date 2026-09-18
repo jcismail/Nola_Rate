@@ -18,6 +18,26 @@ const loanHighlights = [
   { name: "Down Payment Assistance", description: "Programs that may reduce the cash required upfront for qualified home buyers." },
 ];
 
+function AboutJohnSection() {
+  return (
+    <section id="about-john" className="mt-8 grid scroll-mt-6 gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] md:grid-cols-[0.85fr_1.15fr] md:p-8">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-wide text-[#b27b00]">About John</p>
+        <h2 className="mt-2 text-3xl font-bold leading-tight text-[#121e5b]">
+          Experienced mortgage guidance without making the process feel heavy.
+        </h2>
+        <Image src="/brand/cma-certified-mortgage-advisor-blue.png" alt="CMA Certified Mortgage Advisor" width={1000} height={549} className="mt-6 h-auto w-52" />
+      </div>
+      <div className="space-y-4 leading-8 text-[#4c5265]">
+        <p>Recognized as a top mortgage professional in the markets he has served in Texas and Louisiana, John and his team strive to earn the opportunity and trust of their customers to lead to real estate success.</p>
+        <p>Raised in Plano, Texas, John earned both his Bachelor&apos;s degree and MBA from the University of Texas at Dallas. With more than 20 years of mortgage industry experience, he brings deep expertise across purchase, refinance, and equity strategies for primary residences, second homes, and investors.</p>
+        <p>John and his family are based in New Orleans with a secondary base in Dallas, Texas, to be able to serve his customers in Texas. He is licensed and proud to serve customers in Texas, Louisiana, and Mississippi.</p>
+        <p>John is comfortable helping customers who speak Hindi, Urdu, Gujarati, Spanish, and Portuguese.</p>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   function trackEvent(name: string, data?: Record<string, string>) {
     if (typeof window === "undefined") return;
@@ -52,20 +72,27 @@ export default function Home() {
                 residences, second and vacation homes, and investment properties as they
                 build their portfolios.
               </p>
-              <div className="mt-5 grid gap-2 rounded-2xl border border-white/25 bg-white/10 p-4 text-base font-bold sm:grid-cols-2 sm:text-lg">
-                <a href={toTelHref(siteConfig.newOrleansPhone)} className="hover:text-[#ffd534]">
-                  <span className="mr-2 text-[#ffd534]">Phone</span>
-                  {siteConfig.newOrleansPhone}
+              <div className="mt-5 grid gap-3 rounded-2xl border border-white/25 bg-white/10 p-4 text-lg font-bold sm:text-xl">
+                <a href={toTelHref(siteConfig.newOrleansPhone)} className="flex flex-col gap-1 hover:text-[#ffd534] sm:flex-row sm:items-baseline sm:gap-3">
+                  <span className="text-sm uppercase tracking-wide text-[#ffd534]">Phone / Text</span>
+                  <span>{siteConfig.newOrleansPhone}</span>
                 </a>
-                <a href={`mailto:${siteConfig.contactEmail}`} className="break-all hover:text-[#ffd534]">
-                  <span className="mr-2 text-[#ffd534]">Email</span>
-                  {siteConfig.contactEmail}
+                <a href={`mailto:${siteConfig.contactEmail}`} className="flex flex-col gap-1 break-all hover:text-[#ffd534] sm:flex-row sm:items-baseline sm:gap-3">
+                  <span className="text-sm uppercase tracking-wide text-[#ffd534]">Email</span>
+                  <span>{siteConfig.contactEmail}</span>
                 </a>
               </div>
               <ServiceAreaMap />
               <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-white/70">
                 John Ismail · Mortgage Broker · NMLS #{siteConfig.nmls}
               </p>
+              <Image
+                src="/brand/cma-certified-mortgage-advisor-white.png"
+                alt="CMA Certified Mortgage Advisor"
+                width={1000}
+                height={334}
+                className="mt-4 h-auto w-40"
+              />
 
               <div className="mt-8 grid w-full max-w-xl gap-3">
                 <a
@@ -191,39 +218,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about-john" className="mt-8 grid scroll-mt-6 gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-[#e5dcc0] md:grid-cols-[0.85fr_1.15fr] md:p-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#b27b00]">
-              About John
-            </p>
-            <h2 className="mt-2 text-3xl font-bold leading-tight text-[#121e5b]">
-              Experienced mortgage guidance without making the process feel heavy.
-            </h2>
-          </div>
-          <div className="space-y-4 leading-8 text-[#4c5265]">
-            <p>
-              Recognized as a top mortgage professional in the markets he has served in
-              Texas and Louisiana, John and his team strive to earn the opportunity and
-              trust of their customers to lead to real estate success.
-            </p>
-            <p>
-              Raised in Plano, Texas, John earned both his Bachelor&apos;s degree and MBA
-              from the University of Texas at Dallas. With more than 20 years of mortgage
-              industry experience, he brings deep expertise across purchase, refinance,
-              and equity strategies for primary residences, second homes, and investors.
-            </p>
-            <p>
-              John and his family are based in New Orleans with a secondary base in Dallas,
-              Texas, to be able to serve his customers in Texas. He is licensed and proud to
-              serve customers in Texas, Louisiana, and Mississippi.
-            </p>
-            <p>
-              John is comfortable helping customers who speak Hindi, Urdu, Gujarati,
-              Spanish, and Portuguese.
-            </p>
-          </div>
-        </section>
-
         <section id="local-contact" className="mt-8 scroll-mt-6 overflow-hidden rounded-2xl bg-[#0b2142] text-white shadow-sm ring-1 ring-[#d5aa33]/40 md:grid md:grid-cols-[0.82fr_1.18fr]">
           <div className="relative min-h-[320px] bg-[#071833]">
             <Image
@@ -319,7 +313,7 @@ export default function Home() {
                 src="/brand/new-orleans/classic-shotgun-home.jpg"
                 alt="A classic New Orleans shotgun home with an ornate front porch"
                 fill
-                quality={90}
+                unoptimized
                 sizes="(min-width: 1024px) 340px, 50vw"
                 className="object-cover object-center"
               />
@@ -329,7 +323,7 @@ export default function Home() {
                 src="/brand/new-orleans/colorful-new-orleans-home.jpg"
                 alt="Colorful New Orleans homes with traditional shutters and porches"
                 fill
-                quality={90}
+                unoptimized
                 sizes="(min-width: 1024px) 340px, 50vw"
                 className="object-cover object-[62%_center]"
               />
@@ -337,16 +331,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-4 sm:grid-cols-2">
-          <a
-            href={toTelHref(siteConfig.contactPhone)}
-            className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-[#e5dcc0]"
-          >
+        <AboutJohnSection />
+
+        <section id="final-contact" className="mt-8 grid scroll-mt-6 gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-[#e5dcc0]">
             <h3 className="text-xl font-bold text-[#172033]">Call Or Text</h3>
-            <p className="mt-1 text-[#4c5265]">
-              {siteConfig.newOrleansPhone} · {siteConfig.contactPhone}
-            </p>
-          </a>
+            <div className="mt-3 flex flex-col gap-1 text-xl font-bold text-[#121e5b] sm:flex-row sm:flex-wrap sm:gap-x-4">
+              <a href={toTelHref(siteConfig.newOrleansPhone)} className="hover:text-[#b27b00]">{siteConfig.newOrleansPhone}</a>
+              <a href={toTelHref(siteConfig.contactPhone)} className="hover:text-[#b27b00]">{siteConfig.contactPhone}</a>
+            </div>
+          </div>
           <Link
             href="/contact"
             className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-[#e5dcc0]"

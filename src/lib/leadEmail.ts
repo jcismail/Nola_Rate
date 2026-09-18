@@ -39,7 +39,8 @@ const RATE_QUOTE_SECTIONS: LeadEmailSection[] = [
       { key: "credit_range", label: "Credit range" },
       { key: "propertyUse", label: "Property use" },
       { key: "downPaymentMode", label: "Down payment type" },
-      { key: "down_payment_details", label: "Down payment details" },
+      { key: "down_payment_percent", label: "Down payment percentage" },
+      { key: "down_payment_amount", label: "Down payment amount" },
       { key: "referral_source", label: "Referral source" },
     ],
   },
@@ -142,16 +143,15 @@ function formatDate(value: unknown) {
   }).format(date);
 }
 
-function formatValue(key: string, value: unknown, entry: LeadEntry) {
+function formatValue(key: string, value: unknown) {
   const text = String(value).trim();
 
   if (key === "phone") return formatPhone(text);
-  if (key === "target_home_price" || key === "existing_loan_balance") {
+  if (key === "target_home_price" || key === "existing_loan_balance" || key === "down_payment_amount") {
     return formatCurrency(text);
   }
-  if (key === "down_payment_details") {
-    if (entry.downPaymentMode === "amount") return formatCurrency(text);
-    if (entry.downPaymentMode === "percent" && !text.includes("%")) return `${text}%`;
+  if (key === "down_payment_percent") {
+    return text.includes("%") ? text : `${text}%`;
   }
   if (key === "consentToContact") return text === "yes" ? "Yes" : titleCase(text);
   if (key === "marketingOptOut") return text === "yes" ? "Yes — request-specific contact only" : titleCase(text);
@@ -178,7 +178,7 @@ function renderHtmlSection(section: LeadEmailSection, entry: LeadEntry) {
   const rows = section.fields
     .filter(({ key }) => hasValue(entry[key]))
     .map(({ key, label }) => {
-      const displayValue = formatValue(key, entry[key], entry);
+      const displayValue = formatValue(key, entry[key]);
       return `<tr>
         <td style="padding:8px 14px 8px 0;color:#657083;font-size:13px;line-height:20px;vertical-align:top;width:190px;">${escapeHtml(label)}</td>
         <td style="padding:8px 0;color:#172033;font-size:14px;line-height:20px;vertical-align:top;">${fieldLink(key, entry[key], displayValue)}</td>
@@ -196,7 +196,7 @@ function renderHtmlSection(section: LeadEmailSection, entry: LeadEntry) {
 function renderTextSection(section: LeadEmailSection, entry: LeadEntry) {
   const lines = section.fields
     .filter(({ key }) => hasValue(entry[key]))
-    .map(({ key, label }) => `${label}: ${formatValue(key, entry[key], entry)}`);
+    .map(({ key, label }) => `${label}: ${formatValue(key, entry[key])}`);
   if (!lines.length) return "";
   return `${section.title.toUpperCase()}\n${lines.join("\n")}`;
 }

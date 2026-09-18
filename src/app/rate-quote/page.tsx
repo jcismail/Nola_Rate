@@ -4,9 +4,19 @@ import { FormEvent, useMemo, useState } from "react";
 import Image from "next/image";
 import SiteHeader from "@/components/site/SiteHeader";
 import { applicationUrl } from "@/lib/application";
+import { formatPhoneInput } from "@/lib/contactValidation";
 import { siteConfig, toTelHref } from "@/lib/siteConfig";
 
 type FormState = "idle" | "submitting" | "success" | "error";
+
+function numberValue(value: string) {
+  const parsed = Number(value.replace(/[$,%\s]/g, ""));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function compactNumber(value: number) {
+  return Number.isFinite(value) ? String(Math.round(value * 100) / 100) : "";
+}
 
 export default function RateQuotePage() {
   const [state, setState] = useState<FormState>("idle");
@@ -14,6 +24,42 @@ export default function RateQuotePage() {
   const [transactionType, setTransactionType] = useState<"purchase" | "refinance" | "">("");
   const [downPaymentMode, setDownPaymentMode] = useState<"amount" | "percent">("amount");
   const [loanTerm, setLoanTerm] = useState("");
+  const [phone, setPhone] = useState("");
+  const [purchasePrice, setPurchasePrice] = useState("");
+  const [downPaymentAmount, setDownPaymentAmount] = useState("");
+  const [downPaymentPercent, setDownPaymentPercent] = useState("");
+
+  function updatePurchasePrice(value: string) {
+    setPurchasePrice(value);
+    const price = numberValue(value);
+    if (price > 0 && downPaymentPercent !== "") {
+      setDownPaymentAmount(compactNumber((price * numberValue(downPaymentPercent)) / 100));
+    }
+  }
+
+  function updateDownPaymentAmount(value: string) {
+    setDownPaymentAmount(value);
+    if (value === "") {
+      setDownPaymentPercent("");
+      return;
+    }
+    const price = numberValue(purchasePrice);
+    if (price > 0) {
+      setDownPaymentPercent(compactNumber((numberValue(value) / price) * 100));
+    }
+  }
+
+  function updateDownPaymentPercent(value: string) {
+    setDownPaymentPercent(value);
+    if (value === "") {
+      setDownPaymentAmount("");
+      return;
+    }
+    const price = numberValue(purchasePrice);
+    if (price > 0) {
+      setDownPaymentAmount(compactNumber((price * numberValue(value)) / 100));
+    }
+  }
 
   const utm = useMemo(() => {
     if (typeof window === "undefined") return {};
@@ -61,6 +107,10 @@ export default function RateQuotePage() {
       setTransactionType("");
       setDownPaymentMode("amount");
       setLoanTerm("");
+      setPhone("");
+      setPurchasePrice("");
+      setDownPaymentAmount("");
+      setDownPaymentPercent("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");
@@ -179,6 +229,9 @@ export default function RateQuotePage() {
                       onChange={() => {
                         setTransactionType("purchase");
                         setLoanTerm("");
+                        setPurchasePrice("");
+                        setDownPaymentAmount("");
+                        setDownPaymentPercent("");
                       }}
                       required
                     />
@@ -193,6 +246,9 @@ export default function RateQuotePage() {
                       onChange={() => {
                         setTransactionType("refinance");
                         setLoanTerm("");
+                        setPurchasePrice("");
+                        setDownPaymentAmount("");
+                        setDownPaymentPercent("");
                       }}
                       required
                     />
@@ -208,11 +264,24 @@ export default function RateQuotePage() {
                 </label>
                 <label className={labelClass}>
                   Phone *
-                  <input name="phone" type="tel" required className={inputClass} />
+                  <input
+                    name="phone"
+                    type="tel"
+                    required
+                    inputMode="tel"
+                    autoComplete="tel"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    title="Enter a 10-digit phone number"
+                    maxLength={12}
+                    value={phone}
+                    onChange={(event) => setPhone(formatPhoneInput(event.target.value))}
+                    placeholder="XXX-XXX-XXXX"
+                    className={inputClass}
+                  />
                 </label>
                 <label className={labelClass}>
                   Email *
-                  <input name="email" type="email" required className={inputClass} />
+                  <input name="email" type="email" required autoComplete="email" className={inputClass} />
                 </label>
                 <label className={labelClass}>
                   Preferred Contact Method
@@ -260,9 +329,12 @@ export default function RateQuotePage() {
                   <label className={labelClass}>
                     {transactionType === "purchase" ? "Purchase Price *" : "Estimated Property Value *"}
                     <input
+                      key={transactionType}
                       name="target_home_price"
                       inputMode="decimal"
                       required
+                      value={transactionType === "purchase" ? purchasePrice : undefined}
+                      onChange={transactionType === "purchase" ? (event) => updatePurchasePrice(event.target.value) : undefined}
                       className={inputClass}
                       placeholder={transactionType === "purchase" ? "e.g. 450,000" : "e.g. 550,000"}
                     />
@@ -295,16 +367,38 @@ export default function RateQuotePage() {
                           </label>
                         </div>
                       </div>
-                      <label className={labelClass}>
-                        {downPaymentMode === "amount" ? "Down Payment Amount *" : "Down Payment Percentage *"}
-                        <input
-                          name="down_payment_details"
-                          inputMode="decimal"
-                          required
-                          className={inputClass}
-                          placeholder={downPaymentMode === "amount" ? "e.g. 90,000" : "e.g. 20"}
-                        />
-                      </label>
+                      <div className="grid gap-4 sm:grid-cols-2 md:col-span-2">
+                        <label className={labelClass}>
+                          Down Payment Percentage *
+                          <div className="relative">
+                            <input
+                              name="down_payment_percent"
+                              inputMode="decimal"
+                              required
+                              value={downPaymentPercent}
+                              onChange={(event) => updateDownPaymentPercent(event.target.value)}
+                              className={`${inputClass} w-full pr-9`}
+                              placeholder="e.g. 20"
+                            />
+                            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#72778a]">%</span>
+                          </div>
+                        </label>
+                        <label className={labelClass}>
+                          Down Payment Amount *
+                          <input
+                            name="down_payment_amount"
+                            inputMode="decimal"
+                            required
+                            value={downPaymentAmount}
+                            onChange={(event) => updateDownPaymentAmount(event.target.value)}
+                            className={inputClass}
+                            placeholder="e.g. 90,000"
+                          />
+                        </label>
+                        <p className="text-xs leading-5 text-[#5f6270] sm:col-span-2">
+                          Enter either value. The matching percentage or dollar amount updates automatically.
+                        </p>
+                      </div>
                     </>
                   ) : (
                     <label className={labelClass}>
@@ -329,10 +423,10 @@ export default function RateQuotePage() {
                       onChange={(event) => setLoanTerm(event.target.value)}
                     >
                       <option value="">Choose term</option>
-                      {transactionType === "refinance" && <option value="10 years">10 years</option>}
-                      <option value="15 years">15 years</option>
-                      {transactionType === "refinance" && <option value="20 years">20 years</option>}
-                      <option value="30 years">30 years</option>
+                      {transactionType === "refinance" && <option value="10 Years">10 Years</option>}
+                      <option value="15 Years">15 Years</option>
+                      {transactionType === "refinance" && <option value="20 Years">20 Years</option>}
+                      <option value="30 Years">30 Years</option>
                       <option value="Other">Other</option>
                     </select>
                   </label>
@@ -379,6 +473,7 @@ export default function RateQuotePage() {
                     <option>Realtor</option>
                     <option>Friend / Family</option>
                     <option>Financial Advisor</option>
+                    <option>Repeat Customer</option>
                     <option>Web search</option>
                     <option>Other</option>
                   </select>
