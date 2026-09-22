@@ -83,15 +83,41 @@ test("quote request shows the correct required purchase and refinance fields", a
 
 test("calculator supports purchase synchronization and refinance mode", async ({ page }) => {
   await page.goto("/mortgage-calculator");
-  await page.getByLabel("Purchase Price").fill("600000");
+  // A cold dev page can display inputs before React attaches its handlers.
+  await expect(async () => {
+    await page.getByLabel("Purchase Price").fill("");
+    await page.getByLabel("Purchase Price").fill("600000");
+    await expect(page.getByLabel("Purchase Price")).toHaveValue("$600,000");
+  }).toPass({ timeout: 15_000 });
   await page.getByLabel("Down Payment Percentage").fill("20");
-  await expect(page.getByLabel("Down Payment Amount")).toHaveValue("120000");
+  await expect(page.getByLabel("Down Payment Amount")).toHaveValue("$120,000");
+  await expect(page.locator("aside").getByText("$480,000", { exact: true })).toBeVisible();
+  await page.getByLabel("Down Payment Amount").fill("150000");
+  await expect(page.getByLabel("Down Payment Amount")).toHaveValue("$150,000");
+  await expect(page.getByLabel("Down Payment Percentage")).toHaveValue("25");
+  await page.getByLabel("Purchase Price").fill("800000");
+  await expect(page.getByLabel("Down Payment Amount")).toHaveValue("$200,000");
 
   await page.getByRole("button", { name: "Refinance" }).click();
   await expect(page.getByLabel("Current Loan Balance")).toBeVisible();
   await expect(page.getByLabel("Purchase Price")).toHaveCount(0);
   await expect(page.getByLabel("Interest Rate")).toBeVisible();
   await expect(page.getByLabel("Loan Term")).toBeVisible();
+  await page.getByLabel("Current Loan Balance").fill("360000");
+  await expect(page.getByLabel("Current Loan Balance")).toHaveValue("$360,000");
+  await page.getByLabel("Interest Rate").fill("0");
+  await page.getByText("Optional monthly costs", { exact: true }).click();
+  await page.getByLabel("Taxes", { exact: true }).fill("1234.50");
+  await page.getByLabel("Insurance", { exact: true }).fill("175.25");
+  await page.getByLabel("HOA", { exact: true }).fill("90.25");
+  await expect(page.getByLabel("Taxes", { exact: true })).toHaveValue("$1,234.50");
+  await expect(page.getByLabel("Insurance", { exact: true })).toHaveValue("$175.25");
+  await expect(page.getByLabel("HOA", { exact: true })).toHaveValue("$90.25");
+  await expect(page.locator("aside").getByText("$2,500", { exact: true })).toBeVisible();
+  await page.getByLabel("Current Loan Balance").fill("");
+  await expect(page.getByLabel("Current Loan Balance")).toHaveValue("");
+  await page.getByLabel("Current Loan Balance").fill("$275,000.50");
+  await expect(page.getByLabel("Current Loan Balance")).toHaveValue("$275,000.50");
 });
 
 test("homepage moves About John above final contact and serves full-resolution home photos", async ({ page }) => {
