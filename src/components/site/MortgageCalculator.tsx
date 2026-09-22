@@ -19,6 +19,15 @@ function compactNumber(value: number) {
   return Number.isFinite(value) ? String(Math.round(value * 100) / 100) : "";
 }
 
+function formatCurrencyInput(value: string) {
+  const cleaned = value.replace(/[^\d.]/g, "");
+  if (!cleaned) return "";
+  const [whole, ...fraction] = cleaned.split(".");
+  const dollars = (whole || "0").replace(/^0+(?=\d)/, "");
+  const cents = fraction.length ? `.${fraction.join("").slice(0, 2)}` : "";
+  return `$${dollars.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}${cents}`;
+}
+
 export default function MortgageCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("purchase");
   const [homePrice, setHomePrice] = useState("");
@@ -32,23 +41,25 @@ export default function MortgageCalculator() {
   const [hoa, setHoa] = useState("");
 
   function updateHomePrice(value: string) {
-    setHomePrice(value);
-    const price = numberValue(value);
+    const formatted = formatCurrencyInput(value);
+    setHomePrice(formatted);
+    const price = numberValue(formatted);
     if (price > 0 && downPaymentPercent !== "") {
-      setDownPaymentAmount(compactNumber((price * numberValue(downPaymentPercent)) / 100));
+      setDownPaymentAmount(formatCurrencyInput(compactNumber((price * numberValue(downPaymentPercent)) / 100)));
     }
   }
 
   function updateDownPaymentAmount(value: string) {
-    setDownPaymentAmount(value);
+    const formatted = formatCurrencyInput(value);
+    setDownPaymentAmount(formatted);
     const price = numberValue(homePrice);
-    if (price > 0) setDownPaymentPercent(compactNumber((numberValue(value) / price) * 100));
+    if (price > 0) setDownPaymentPercent(compactNumber((numberValue(formatted) / price) * 100));
   }
 
   function updateDownPaymentPercent(value: string) {
     setDownPaymentPercent(value);
     const price = numberValue(homePrice);
-    if (price > 0) setDownPaymentAmount(compactNumber((price * numberValue(value)) / 100));
+    if (price > 0) setDownPaymentAmount(formatCurrencyInput(compactNumber((price * numberValue(value)) / 100)));
   }
 
   const result = useMemo(() => {
@@ -122,7 +133,7 @@ export default function MortgageCalculator() {
         ) : (
           <label className={labelClass}>
             Current Loan Balance
-            <input aria-label="Current Loan Balance" className={`${inputClass} placeholder:text-slate-400`} inputMode="decimal" value={refinanceBalance} placeholder="e.g. 275,000" onChange={(event) => setRefinanceBalance(event.target.value)} />
+            <input aria-label="Current Loan Balance" className={`${inputClass} placeholder:text-slate-400`} inputMode="decimal" value={refinanceBalance} placeholder="e.g. 275,000" onChange={(event) => setRefinanceBalance(formatCurrencyInput(event.target.value))} />
           </label>
         )}
 
@@ -145,9 +156,9 @@ export default function MortgageCalculator() {
         <details className="rounded-xl border border-[#e2d6b5] bg-[#fffdf3] p-4">
           <summary className="cursor-pointer text-sm font-bold text-[#121e5b]">Optional monthly costs</summary>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            <label className={labelClass}>Taxes<input className={inputClass} inputMode="decimal" value={taxes} placeholder="450" onChange={(event) => setTaxes(event.target.value)} /></label>
-            <label className={labelClass}>Insurance<input className={inputClass} inputMode="decimal" value={insurance} placeholder="175" onChange={(event) => setInsurance(event.target.value)} /></label>
-            <label className={labelClass}>HOA<input className={inputClass} inputMode="decimal" value={hoa} placeholder="0" onChange={(event) => setHoa(event.target.value)} /></label>
+            <label className={labelClass}>Taxes<input className={inputClass} inputMode="decimal" value={taxes} placeholder="450" onChange={(event) => setTaxes(formatCurrencyInput(event.target.value))} /></label>
+            <label className={labelClass}>Insurance<input className={inputClass} inputMode="decimal" value={insurance} placeholder="175" onChange={(event) => setInsurance(formatCurrencyInput(event.target.value))} /></label>
+            <label className={labelClass}>HOA<input className={inputClass} inputMode="decimal" value={hoa} placeholder="0" onChange={(event) => setHoa(formatCurrencyInput(event.target.value))} /></label>
           </div>
         </details>
 
