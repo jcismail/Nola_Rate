@@ -10,7 +10,7 @@ import { siteConfig, toTelHref } from "@/lib/siteConfig";
 type FormState = "idle" | "submitting" | "success" | "error";
 
 function numberValue(value: string) {
-  const parsed = Number(value.replace(/[$,%\s]/g, ""));
+  const parsed = Number(value.replace(/[$,%\s,]/g, ""));
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
@@ -18,34 +18,47 @@ function compactNumber(value: number) {
   return Number.isFinite(value) ? String(Math.round(value * 100) / 100) : "";
 }
 
+function formatCurrencyInput(value: string) {
+  const digits = value.replace(/\D/g, "");
+  if (!digits) return "";
+  const normalized = digits.replace(/^0+(?=\d)/, "");
+  return `$${normalized.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+}
+
+function formatCurrencyAmount(value: number) {
+  return Number.isFinite(value) ? formatCurrencyInput(String(Math.round(value))) : "";
+}
+
 export default function RateQuotePage() {
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
   const [transactionType, setTransactionType] = useState<"purchase" | "refinance" | "">("");
-  const [downPaymentMode, setDownPaymentMode] = useState<"amount" | "percent">("amount");
   const [loanTerm, setLoanTerm] = useState("");
   const [phone, setPhone] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [downPaymentAmount, setDownPaymentAmount] = useState("");
   const [downPaymentPercent, setDownPaymentPercent] = useState("");
+  const [existingLoanBalance, setExistingLoanBalance] = useState("");
 
   function updatePurchasePrice(value: string) {
-    setPurchasePrice(value);
-    const price = numberValue(value);
+    const formatted = formatCurrencyInput(value);
+    setPurchasePrice(formatted);
+    const price = numberValue(formatted);
     if (price > 0 && downPaymentPercent !== "") {
-      setDownPaymentAmount(compactNumber((price * numberValue(downPaymentPercent)) / 100));
+      setDownPaymentAmount(formatCurrencyAmount((price * numberValue(downPaymentPercent)) / 100));
     }
   }
 
   function updateDownPaymentAmount(value: string) {
-    setDownPaymentAmount(value);
-    if (value === "") {
+    const formatted = formatCurrencyInput(value);
+    setDownPaymentAmount(formatted);
+    if (formatted === "") {
       setDownPaymentPercent("");
       return;
     }
     const price = numberValue(purchasePrice);
     if (price > 0) {
-      setDownPaymentPercent(compactNumber((numberValue(value) / price) * 100));
+      setDownPaymentPercent(compactNumber((numberValue(formatted) / price) * 100));
     }
   }
 
@@ -57,7 +70,7 @@ export default function RateQuotePage() {
     }
     const price = numberValue(purchasePrice);
     if (price > 0) {
-      setDownPaymentAmount(compactNumber((price * numberValue(value)) / 100));
+      setDownPaymentAmount(formatCurrencyAmount((price * numberValue(value)) / 100));
     }
   }
 
@@ -105,12 +118,12 @@ export default function RateQuotePage() {
       setState("success");
       form.reset();
       setTransactionType("");
-      setDownPaymentMode("amount");
       setLoanTerm("");
       setPhone("");
       setPurchasePrice("");
       setDownPaymentAmount("");
       setDownPaymentPercent("");
+      setExistingLoanBalance("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed.");
       setState("error");
@@ -232,6 +245,7 @@ export default function RateQuotePage() {
                         setPurchasePrice("");
                         setDownPaymentAmount("");
                         setDownPaymentPercent("");
+                        setExistingLoanBalance("");
                       }}
                       required
                     />
@@ -249,6 +263,7 @@ export default function RateQuotePage() {
                         setPurchasePrice("");
                         setDownPaymentAmount("");
                         setDownPaymentPercent("");
+                        setExistingLoanBalance("");
                       }}
                       required
                     />
@@ -333,41 +348,15 @@ export default function RateQuotePage() {
                       name="target_home_price"
                       inputMode="decimal"
                       required
-                      value={transactionType === "purchase" ? purchasePrice : undefined}
-                      onChange={transactionType === "purchase" ? (event) => updatePurchasePrice(event.target.value) : undefined}
+                      value={purchasePrice}
+                      onChange={(event) => updatePurchasePrice(event.target.value)}
                       className={inputClass}
                       placeholder={transactionType === "purchase" ? "e.g. 450,000" : "e.g. 550,000"}
                     />
                   </label>
 
                   {transactionType === "purchase" ? (
-                    <>
-                      <div className="rounded-2xl border border-[#e2d6b5] bg-white p-4">
-                        <p className="text-sm font-bold text-[#121e5b]">Down Payment Type *</p>
-                        <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                          <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] px-3 py-2 text-sm font-semibold text-[#172033]">
-                            <input
-                              type="radio"
-                              name="downPaymentMode"
-                              value="amount"
-                              checked={downPaymentMode === "amount"}
-                              onChange={() => setDownPaymentMode("amount")}
-                            />
-                            $ Amount
-                          </label>
-                          <label className="flex items-center gap-2 rounded-lg border border-[#e2d6b5] px-3 py-2 text-sm font-semibold text-[#172033]">
-                            <input
-                              type="radio"
-                              name="downPaymentMode"
-                              value="percent"
-                              checked={downPaymentMode === "percent"}
-                              onChange={() => setDownPaymentMode("percent")}
-                            />
-                            Percentage
-                          </label>
-                        </div>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2 md:col-span-2">
+                    <div className="grid gap-4 sm:grid-cols-2 md:col-span-2">
                         <label className={labelClass}>
                           Down Payment Percentage *
                           <div className="relative">
@@ -398,8 +387,7 @@ export default function RateQuotePage() {
                         <p className="text-xs leading-5 text-[#5f6270] sm:col-span-2">
                           Enter either value. The matching percentage or dollar amount updates automatically.
                         </p>
-                      </div>
-                    </>
+                    </div>
                   ) : (
                     <label className={labelClass}>
                       Existing Loan Balance *
@@ -407,6 +395,8 @@ export default function RateQuotePage() {
                         name="existing_loan_balance"
                         inputMode="decimal"
                         required
+                        value={existingLoanBalance}
+                        onChange={(event) => setExistingLoanBalance(formatCurrencyInput(event.target.value))}
                         className={inputClass}
                         placeholder="e.g. 275,000"
                       />
